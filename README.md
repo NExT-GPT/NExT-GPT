@@ -48,7 +48,7 @@ For more examples, kindly visit the [webpage](https://next-gpt.github.io/), or t
 ## Brief Introduction 
 
 
-NExt-GPT is built on top of existing pre-trained LLM, multimodal encoder and SoTA diffusion models.
+NExt-GPT is built on top of existing pre-trained LLM, multimodal encoder and SoTA diffusion models, with sufficient end-to-end instruction tuning.
 
 <p align="center" width="100%">
 <a target="_blank"><img src="figures/framework.png" alt="Video-LLaMA" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a>
