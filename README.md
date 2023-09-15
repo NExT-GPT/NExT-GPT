@@ -344,7 +344,7 @@ The whole NExT-GPT training involves 3 steps:
 
 
 
-<span id='Running NExT-GPT System'/>
+<span id='Run NExT-GPT System'/>
 
 ## 4. Running NExT-GPT System <a href='#all_catelogue'>[Back to Top]</a>
 
