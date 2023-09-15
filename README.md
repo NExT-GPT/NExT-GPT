@@ -364,12 +364,12 @@ First, loading the pre-trained NExT-GPT system.
 
 
 #### 4.2. Deploying Gradio Demo
-Upon completion of the checkpoints, you can run the demo locally as:
+Upon completion of the checkpoint loading, you can run the demo locally via:
 ```angular2html
 cd ./code
 bash scripts/app.sh
 ```
-Specifying the key arguments are:
+Specifying the key arguments as:
 - `--nextgpt_ckpt_path`: the path of pre-trained NExT-GPT params.
 
 ---------
