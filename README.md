@@ -211,11 +211,11 @@ is the unified image/video/audio encoder. The pre-trained checkpoint can be down
 first prepare the LLaMA by following the instructions [[here]](ckpt/pretrained_ckpt/prepare_vicuna.md). Then put the pre-trained model at [[./ckpt/pretrained_ckpt/vicuna_ckpt/]](ckpt/pretrained_ckpt/vicuna_ckpt/). 
 - `Image Diffusion`
 is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5) with version `
-v1-5`.
+v1-5`. (_will be automatically downloaded_)
 - `Audio Diffusion`
-for producing audio content. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`.
+for producing audio content. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`. (_will be automatically downloaded_)
 - `Video Diffusion`
-for the video generation. We employ [ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w) with version `v2_576w`.
+for the video generation. We employ [ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w) with version `v2_576w`. (_will be automatically downloaded_)
 
 
 
