@@ -146,9 +146,9 @@ def parse_reponse(model_outputs):
             _temp_output = ''
             for m in p['img']:
                 if isinstance(m, str):
-                    response += m.replace('[IMG0] [IMG1] [IMG2] [IMG3]', '')
+                    response += m.replace(' '.join([f'[IMG{i}]' for i in range(args['num_gen_img_tokens'])]), '')
                     response += '<br>'
-                    _temp_output += m.replace('[IMG0] [IMG1] [IMG2] [IMG3]', '')
+                    _temp_output += m.replace(' '.join([f'[IMG{i}]' for i in range(args['num_gen_img_tokens'])]), '')
                 else:
                     filename = save_image_to_local(m[0])
                     print(filename)
@@ -159,9 +159,9 @@ def parse_reponse(model_outputs):
             _temp_output = ''
             for idx, m in enumerate(p['vid']):
                 if isinstance(m, str):
-                    response += m.replace('[VID0] [VID1] [VID2] [VID3] [VID4] [VID5] [VID6] [VID7]', '')
+                    response += m.replace(' '.join([f'[VID{i}]' for i in range(args['num_gen_video_tokens'])]), '')
                     response += '<br>'
-                    _temp_output += m.replace('[VID0] [VID1] [VID2] [VID3] [VID4] [VID5] [VID6] [VID7]', '')
+                    _temp_output += m.replace(' '.join([f'[VID{i}]' for i in range(args['num_gen_video_tokens'])]), '')
                 else:
                     filename = save_video_to_local(m)
                     print(filename)
@@ -172,9 +172,9 @@ def parse_reponse(model_outputs):
             _temp_output = ''
             for idx, m in enumerate(p['aud']):
                 if isinstance(m, str):
-                    response += m.replace('[AUD0] [AUD1] [AUD2] [AUD3] [AUD4] [AUD5] [AUD6] [AUD7]', '')
+                    response += m.replace(' '.join([f'[AUD{i}]' for i in range(args['num_gen_audio_tokens'])]), '')
                     response += '<br>'
-                    _temp_output += m.replace('[AUD0] [AUD1] [AUD2] [AUD3] [AUD4] [AUD5] [AUD6] [AUD7]', '')
+                    _temp_output += m.replace(' '.join([f'[AUD{i}]' for i in range(args['num_gen_audio_tokens'])]), '')
                 else:
                     filename = save_audio_to_local(m)
                     print(filename)
