@@ -13,7 +13,7 @@
 [![YouTube](https://badges.aleen42.com/src/youtube.svg)](https://www.youtube.com/watch?v=aqw2SCWeWD0)
 
 
-This repository hosts the code, data and model weight of **NExT-GPT**, first end-to-end MM-LLM that perceive input and generate output in arbitrary combinations (any-to-any) of text, image, video, and audio and beyond.
+This repository hosts the code, data and model weight of **NExT-GPT**, the first end-to-end MM-LLM that perceives input and generate output in arbitrary combinations (any-to-any) of text, image, video, and audio and beyond.
 
 
 
@@ -213,7 +213,7 @@ first prepare the LLaMA by following the instructions [[here]](ckpt/pretrained_c
 is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5) with version `
 v1-5`.
 - `Audio Diffusion`
-for producing audio contents. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`.
+for producing audio content. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`.
 - `Video Diffusion`
 for the video generation. We employ [ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w) with version `v2_576w`.
 
@@ -242,14 +242,14 @@ B) Instruction data
       ```  
    
   - MosIT
-    - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handle the copyright issue. Will release later._) 
+    - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handling the copyright issue. Will release later._) 
 
 
 <span id='Precompute Embeddings'/>
 
 #### 3.3. Precomputing Embeddings <a href='#all_catelogue'>[Back to Top]</a>
 In decoding-side alignment training, we minimize the distance between the representation of signal tokens and captions. 
-To save the costs of time and memory, we precompute the text embeddings for image, audio and video captions using the text encoder within the respective diffusion models.  
+To save costs of time and memory, we precompute the text embeddings for image, audio and video captions using the text encoder within the respective diffusion models.  
 
 Please run this command before the following training of NExT-GPT, where the produced `embedding` file will be saved at [[./data/embed]](./data/embed).
 ```angular2html
@@ -271,7 +271,7 @@ Note of arguments:
 
 First of all, please refer to the base configuration file [[./code/config/base.yaml]](./code/config/base.yaml) for the basic system setting of overall modules.
 
-Then, the training of NExT-GPT starts by this script:
+Then, the training of NExT-GPT starts with this script:
 ```angular2html
 cd ./code
 bash scripts/train.sh
@@ -292,7 +292,7 @@ where the key arguments are:
 - `--include`: `localhost:0` indicating the GPT cuda number `0` of deepspeed.
 - `--stage`: training stage.
 - `--dataset`: the dataset name for training model.
-- `--data_path`: the data path for the training file .
+- `--data_path`: the data path for the training file.
 - `--mm_root_path`: the data path for the image/video/audio file.
 - `--embed_path`: the data path for the text embedding file.
 - `--save_path`: the directory which saves the trained delta weights. This directory will be automatically created.
@@ -305,7 +305,7 @@ where the key arguments are:
 
 The whole NExT-GPT training involves 3 steps:
 
-- **Step-1**: Encoding-side LLM-centric Multimodal Alignment. This stage trains the ***input projection layer*** while freeze the ImageBind, LLM, output projection layer.
+- **Step-1**: Encoding-side LLM-centric Multimodal Alignment. This stage trains the ***input projection layer*** while freezing the ImageBind, LLM, output projection layer.
   
   Just run the above `train.sh` script by setting:
   -  `--stage 1`
@@ -317,7 +317,7 @@ The whole NExT-GPT training involves 3 steps:
 
 
 
-- **Step-2**: Decoding-side Instruction-following Alignment. This stage trains the ***output projection layers*** while freeze the ImageBind, LLM, input projection layers.
+- **Step-2**: Decoding-side Instruction-following Alignment. This stage trains the ***output projection layers*** while freezing the ImageBind, LLM, input projection layers.
 
   Just run the above `train.sh` script by setting:
   -  `--stage 2`
@@ -331,7 +331,7 @@ The whole NExT-GPT training involves 3 steps:
 
 
 
-- **Step-3**: Instruction Tuning. This stage instruction-tune 1) the ***LLM*** via LoRA, 2) ***input projection layer*** and 3) ***output projection layer*** on instruction dataset.
+- **Step-3**: Instruction Tuning. This stage instruction-tune 1) the ***LLM*** via LoRA, 2) ***input projection layer*** and 3) ***output projection layer*** on the instruction dataset.
 
   Just run the above `train.sh` script by setting:
   -  `--stage 3`
