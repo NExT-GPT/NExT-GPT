@@ -1,0 +1,9 @@
+freeze_lm: true
+freeze_input_proj: false
+freeze_output_proj: true
+prompt: 'generate a caption' # the prompting information for the enc-side alignment.
+train:
+    warmup_rate: 0.1
+    epochs: 1
+    max_length: 512
+    max_shard_size: 10GB

@@ -1,0 +1,17 @@
+# ========= lora hyper-params ========== #
+lora_r: 32
+lora_alpha: 32
+lora_dropout: 0.1
+
+freeze_lm: false
+freeze_input_proj: false
+freeze_output_proj: false
+prompt: '' # the prompting information for the enc-side alignment.
+
+train:
+    warmup_rate: 0.1
+    epochs: 1
+    max_length: 512
+    max_shard_size: 10GB
+
+

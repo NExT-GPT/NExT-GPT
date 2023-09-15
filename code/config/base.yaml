@@ -1,0 +1,45 @@
+# ========= system global ========== #
+models:
+    nextgpt:
+        model_name: NextGPTModel
+        agent_name: DeepSpeedAgent
+
+seed: 13
+max_length: 512 # max length of the user input prompt
+logging_step: 5
+num_clip_tokens: 77
+gen_emb_dim: 768
+pretrained_ckpt_path: ../ckpt/pretrained_ckpt/
+
+# ========= LLM ========== #
+vicuna_version: 7b_v0 # [7b_v0, ]
+
+# ========= multimodal encoder ========== #
+imagebind_version: huge
+
+# ========= text-to-image alignment tuning ========== #
+n_img_tokens: 4
+text_emb_to_img_layers: [-1]
+num_gen_img_tokens: 4
+text_fc_to_img_mode: transformer  #  [qformer, transformer]
+
+# ========= text-to-video alignment tuning ========== #
+n_video_tokens: 24
+text_emb_to_video_layers: [-1]
+num_gen_video_tokens: 24
+text_fc_to_video_mode: transformer  # [qformer, transformer]
+
+# ========= text-to-audio alignment tuning ========== #
+n_audio_tokens: 8
+text_emb_to_audio_layers: [-1]
+num_gen_audio_tokens: 8
+text_fc_to_audio_mode: transformer  # [qformer, transformer]
+
+# ========= image diffusion model ========== #
+image_diffusion: runwayml/stable-diffusion-v1-5 # [runwayml/stable-diffusion-v1-5, stabilityai/stable-diffusion-2]
+
+# ========= video diffusion model ========== #
+video_diffusion: cerspense/zeroscope_v2_576w
+
+# ========= audio diffusion model ========== #
+audio_diffusion:  cvssp/audioldm-l-full # [cvssp/audioldm-l-full, cvssp/audioldm-s-full-v2]
