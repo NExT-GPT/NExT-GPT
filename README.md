@@ -13,7 +13,7 @@
 [![YouTube](https://badges.aleen42.com/src/youtube.svg)](https://www.youtube.com/watch?v=aqw2SCWeWD0)
 
 
-This repository hosts the code, data and model weight of **NExT-GPT**, the first end-to-end MM-LLM that perceives input and generate output in arbitrary combinations (any-to-any) of text, image, video, and audio and beyond.
+This repository hosts the code, data and model weight of **NExT-GPT**, the first end-to-end MM-LLM that perceives input and generates output in arbitrary combinations (any-to-any) of text, image, video, and audio and beyond.
 
 
 
