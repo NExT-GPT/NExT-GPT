@@ -7,7 +7,7 @@
 -----
 
 <a href='https://next-gpt.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
-<a href='https://b3c1f14173f9b99618.gradio.live/'><img src='https://img.shields.io/badge/Demo-Page-purple'></a> 
+<a href='https://67ab2b62224ecd0f5a.gradio.live/'><img src='https://img.shields.io/badge/Demo-Page-purple'></a> 
 <a href='https://arxiv.org/pdf/2309.05519'><img src='https://img.shields.io/badge/Paper-PDF-orange'></a> 
 ![License](https://img.shields.io/badge/License-BSD-blue.svg)
 [![YouTube](https://badges.aleen42.com/src/youtube.svg)](https://www.youtube.com/watch?v=aqw2SCWeWD0)
