@@ -406,6 +406,7 @@ You may refer to related work that serves as foundations for our framework and c
 [Zeroscope](https://huggingface.co/cerspense/zeroscope_v2_576w).
 We also partially draw inspirations from 
 [PandaGPT](https://github.com/yxuansu/PandaGPT), 
+[VPGTrans](https://vpgtrans.github.io/), 
 [GILL](https://github.com/kohjingyu/gill/), 
 [CoDi](https://codi-gen.github.io/),
 [Video-LLaMA](https://github.com/DAMO-NLP-SG/Video-LLaMA),
