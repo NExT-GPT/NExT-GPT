@@ -7,7 +7,7 @@
 -----
 
 <a href='https://next-gpt.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
-<a href='https://67ab2b62224ecd0f5a.gradio.live/'><img src='https://img.shields.io/badge/Demo-Page-purple'></a> 
+<a href='#'><img src='https://img.shields.io/badge/Demo-Page-purple'></a> 
 <a href='https://arxiv.org/pdf/2309.05519'><img src='https://img.shields.io/badge/Paper-PDF-orange'></a> 
 ![License](https://img.shields.io/badge/License-BSD-blue.svg)
 [![YouTube](https://badges.aleen42.com/src/youtube.svg)](https://www.youtube.com/watch?v=aqw2SCWeWD0)
@@ -36,23 +36,16 @@ This repository hosts the code, data and model weight of **NExT-GPT**, the first
 
 ## Example Demos
 Here, we showcase one example generated from NExT-GPT.
-For more examples, kindly visit the [webpage](https://next-gpt.github.io/), or the online live [demo](https://67ab2b62224ecd0f5a.gradio.live). 
+For more examples, kindly visit the [webpage](https://next-gpt.github.io/), or the online live [demo](#). 
 
 
-<video width="100%" controls>
-  <source src="figures/example_9_Trim.mp4" type="video/mp4">
-</video>
+https://github.com/NExT-GPT/NExT-GPT/assets/18722770/0c2b3d88-a533-4899-ab44-65580fe54538
 
 
-<p align="center" width="100%">
-<video width="100%" controls>
-  <source src="figures/example_9_Trim.mp4" type="video/mp4">
-</video>
-</p>
-<!-- ![Example-1](figures/example_9_Trim.mp4) -->
-<!-- <video src="figures/example_9_Trim.mp4" style="display: inline-block;" width="500" playsinline="" controls=""></video> -->
-<!-- <a target="_blank"><img src="figures/demo.png" alt="Video-LLaMA" style="width: 90%; min-width: 200px; display: block; margin: auto;"></a> -->
+https://github.com/NExT-GPT/NExT-GPT/assets/18722770/eb1319a6-38aa-4546-a96e-163207e7de93
 
+
+https://github.com/NExT-GPT/NExT-GPT/assets/18722770/36bec0ad-9bad-4bcf-bc37-92b028f1bc6a
 
 
 
