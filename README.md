@@ -35,7 +35,7 @@ This repository hosts the code, data and model weight of **NExT-GPT**, the first
 -----------
 
 ## Example Demos
-Here, we showcase one example generated from NExT-GPT.
+Here we showcase examples generated from NExT-GPT.
 For more examples, kindly visit the [webpage](https://next-gpt.github.io/), or the online live [demo](https://8642d4fb74419a54a5.gradio.live). 
 
 
