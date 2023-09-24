@@ -606,8 +606,8 @@ class NextGPTModel(nn.Module):
         pattern = r'Video>(.*?)<\/Video'
         matches = re.findall(pattern, text)
         features = []
-        p_before_token = self.llama_tokenizer('<Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
-        p_after_token = self.llama_tokenizer('</Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
+        p_before_token = self.llama_tokenizer('<Vid>', add_special_tokens=False, return_tensors='pt').to(self.device)
+        p_after_token = self.llama_tokenizer('</Vid>', add_special_tokens=False, return_tensors='pt').to(self.device)
         if self.args['freeze_lm']:
             p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
             p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
@@ -628,8 +628,8 @@ class NextGPTModel(nn.Module):
         pattern = r'Audio>(.*?)<\/Audio'
         matches = re.findall(pattern, text)
         features = []
-        p_before_token = self.llama_tokenizer('<Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
-        p_after_token = self.llama_tokenizer('</Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
+        p_before_token = self.llama_tokenizer('<Aud>', add_special_tokens=False, return_tensors='pt').to(self.device)
+        p_after_token = self.llama_tokenizer('</Aud>', add_special_tokens=False, return_tensors='pt').to(self.device)
         if self.args['freeze_lm']:
             p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
             p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
