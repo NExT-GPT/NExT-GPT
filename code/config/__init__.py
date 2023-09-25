@@ -24,10 +24,11 @@ def load_config(args):
     base_configuration = load_base_config()
 
     # load one model config
-    configuration = load_model_config(args['stage'], args['mode'])
+    if args['mode']:
+        configuration = load_model_config(args['stage'], args['mode'])
 
-    # update and append the special config for base config
-    base_configuration.update(configuration)
+        # update and append the special config for base config
+        base_configuration.update(configuration)
     configuration = base_configuration
     return configuration
 
