@@ -291,8 +291,8 @@ deepspeed --include localhost:0 --master_addr 127.0.0.1 --master_port 28459 trai
     --data_path  ../data/T-X_pair_data/cc3m/cc3m.json\
     --mm_root_path ../data/T-X_pair_data/cc3m/images/\
     --embed_path ../data/embed/\
-    --save_path  ../ckpt/delta_ckpt/nextgpt/7b/\
-    --log_path ../ckpt/delta_ckpt/nextgpt/7b/log/
+    --save_path  ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/\
+    --log_path ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log/
 ```
 where the key arguments are:
 - `--include`: `localhost:0` indicating the GPT cuda number `0` of deepspeed.
