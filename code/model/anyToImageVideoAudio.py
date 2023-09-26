@@ -197,8 +197,8 @@ class NextGPTModel(nn.Module):
             self.args['gen_img_token_idx'].append(gen_token_idx[0])
 
     def _add_video_token(self):
-        self.llama_tokenizer.add_tokens({"<Vid>"})  # add special video token to tokenizer
-        self.llama_tokenizer.add_tokens({"</Vid>"})  # add special video token to tokenizer
+        # self.llama_tokenizer.add_tokens({"<Vid>"})  # add special video token to tokenizer
+        # self.llama_tokenizer.add_tokens({"</Vid>"})  # add special video token to tokenizer
 
         # Add [VID] tokens to the vocabulary.
         self.args['gen_video_token_idx'] = []
@@ -214,8 +214,8 @@ class NextGPTModel(nn.Module):
             self.args['gen_video_token_idx'].append(gen_token_idx[0])
 
     def _add_audio_token(self):
-        self.llama_tokenizer.add_tokens({"<Aud>"})  # add special audio token to tokenizer
-        self.llama_tokenizer.add_tokens({"</Aud>"})  # add special audio token to tokenizer
+        # self.llama_tokenizer.add_tokens({"<Aud>"})  # add special audio token to tokenizer
+        # self.llama_tokenizer.add_tokens({"</Aud>"})  # add special audio token to tokenizer
 
         # Add [AUD] tokens to the vocabulary.
         self.args['gen_audio_token_idx'] = []
