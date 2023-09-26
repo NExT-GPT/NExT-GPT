@@ -24,7 +24,7 @@ parser.add_argument('--nextgpt_ckpt_path', type=str)  # the delta parameters tra
 parser.add_argument('--stage', type=int, default=3)  # the training stage
 parser.add_argument('--modality', type=list, default=['image', 'video', 'audio', 'text'])
 args = parser.parse_args()
-
+args = vars(args)
 args.update(load_config(args))
 model = NextGPTModel(**args)
 delta_ckpt = torch.load(os.path.join(args['nextgpt_ckpt_path'], f'pytorch_model.pt'), map_location=torch.device('cpu'))
