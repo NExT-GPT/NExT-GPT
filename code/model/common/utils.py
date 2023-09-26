@@ -230,7 +230,7 @@ def process_batch_stage_1(tokenizer, batch_of_captions, max_tgt_len, prompt=''):
 
 def build_one_instance_stage_2(tokenizer, captions, num_signal_tokens=4, MODALITY='image'):
     input_ids, target_ids = [], []
-    text = '</Img> ' + captions + '\n### Assistant: '
+    text = captions + '\n### Assistant: '
     one_input_id = tokenizer(text, add_special_tokens=False).input_ids
     input_ids += one_input_id
     target_ids += [-100] * len(one_input_id)  # do not perform loss regression on human prompt
