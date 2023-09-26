@@ -113,13 +113,17 @@ def parse_text(text, image_path, video_path, audio_path):
 
 
 def save_image_to_local(image: Image.Image):
-    # TODO(jykoh): Update so the url path is used, to prevent repeat saving.
+    # TODO: Update so the url path is used, to prevent repeat saving.
+    if not os.path.exists('temp'):
+        os.mkdir('temp')
     filename = os.path.join('temp', next(tempfile._get_candidate_names()) + '.jpg')
     image.save(filename)
     return filename
 
 
 def save_video_to_local(video):
+    if not os.path.exists('temp'):
+        os.mkdir('temp')
     filename = os.path.join('temp', next(tempfile._get_candidate_names()) + '.mp4')
     writer = imageio.get_writer(filename, format='FFMPEG', fps=8)
     for frame in video:
@@ -129,6 +133,8 @@ def save_video_to_local(video):
 
 
 def save_audio_to_local(audio):
+    if not os.path.exists('temp'):
+        os.mkdir('temp')
     filename = os.path.join('temp', next(tempfile._get_candidate_names()) + '.wav')
     scipy.io.wavfile.write(filename, rate=16000, data=audio)
     return filename
