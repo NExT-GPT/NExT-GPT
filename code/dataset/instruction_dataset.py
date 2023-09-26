@@ -42,7 +42,7 @@ def load_audiocap(data_path, save_dir):
         conversation = []
 
         _temp_idx = random.randint(0, len(RESPONSE_TEMPLATE) - 1)
-        response = RESPONSE_TEMPLATE[0].format(audio_kw) if _temp_idx == 0 else RESPONSE_TEMPLATE[_temp_idx]
+        response = RESPONSE_TEMPLATE[_temp_idx].format(audio_kw) if _temp_idx == 0 or _temp_idx == 1 else RESPONSE_TEMPLATE[_temp_idx]
         conversation.append(
             {'from': 'human',
              'value': instruction.format(produce_kw, audio_kw) + one_caption,
@@ -79,7 +79,7 @@ def load_webvid(data_path, sample_number=1000, save_dir=''):
         _temp['output_modality'] = 'video'
         conversation = []
         _temp_idx = random.randint(0, len(RESPONSE_TEMPLATE) - 1)
-        response = RESPONSE_TEMPLATE[0].format(video_kw) if _temp_idx == 0 else RESPONSE_TEMPLATE[_temp_idx]
+        response = RESPONSE_TEMPLATE[_temp_idx].format(video_kw) if _temp_idx == 0 or _temp_idx == 1 else RESPONSE_TEMPLATE[_temp_idx]
         conversation.append(
             {'from': 'human',
              'value': instruction.format(produce_kw, video_kw) + one_caption,
@@ -117,7 +117,7 @@ def load_cc3m(data_path, sample_number=1000, save_dir=''):
         _temp['output_modality'] = 'image'
         conversation = []
         _temp_idx = random.randint(0, len(RESPONSE_TEMPLATE) - 1)
-        response = RESPONSE_TEMPLATE[0].format(image_kw) if _temp_idx == 0 else RESPONSE_TEMPLATE[_temp_idx]
+        response = RESPONSE_TEMPLATE[_temp_idx].format(image_kw) if _temp_idx == 0 or _temp_idx == 1 else RESPONSE_TEMPLATE[_temp_idx]
         conversation.append(
             {'from': 'human',
              'value': instruction.format(produce_kw, image_kw) + one_caption,
