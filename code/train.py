@@ -13,8 +13,8 @@ def parser_args():
     parser.add_argument('--mm_root_path', type=str, default='cc3m/images')  # training data
     parser.add_argument('--embed_path', type=str, default='./embed/')  # the embedding path of video/audio/image caption via text encoder in different diffusion model
     parser.add_argument('--local_rank', default=0, type=int)
-    parser.add_argument('--save_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_v0/')
-    parser.add_argument('--log_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_v0/log_rest/')
+    parser.add_argument('--save_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/')
+    parser.add_argument('--log_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log_rest/')
     parser.add_argument('--assets_path', type=str, default='./assets/')
 
     # model configurations
