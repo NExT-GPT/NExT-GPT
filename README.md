@@ -20,11 +20,13 @@ This repository hosts the code, data and model weight of **NExT-GPT**, the first
 -----------
 
 ## 🎉 News 
+
 - [x] [2023.09.15] 🚀🚀 Release the code of NExT-GPT in version `7b_tiva_v0`.
+- [x] [2023.10.04] 🚀🚀 Release the checkpoint of NExT-GPT in version `7b_tiva_v0`.
+- [x] [2023.10.04] 🚀🚀 Release the T2M instruction dataset.
 
 
 ## 👉 TODO 
-- [ ] Release checkpoints (projection layers).
 - [ ] Release MosIT data.
 - [ ] Updating NExT-GPT in more types&sizes of LLMs.
 - [ ] Empowering NExT-GPT with more modalities of inputs&outputs.
@@ -132,10 +134,13 @@ For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/23
 │   │   └── stage_3.json                  # deepspeed configuration for instruction-tuning training
 │   ├── datast
 │   │   ├── base_dataset.py
+│   │   ├── catalog.py                    # the catalog information of the dataset
 │   │   ├── cc3m_datast.py                # process and load text-image pair dataset
 │   │   ├── audiocap_datast.py            # process and load text-audio pair dataset
 │   │   ├── webvid_dataset.py             # process and load text-video pair dataset
-│   │   └── instruction_dataset.py        # process and load instruction pair dataset
+│   │   ├── T+X-T_instruction_dataset.py  # process and load text+x-to-text instruction dataset
+│   │   ├── T-T+X_instruction_dataset.py  # process and load text-to-text+x instruction dataset
+│   │   └── concat_dataset.py             # process and load multiple dataset
 │   ├── model                     
 │   │   ├── ImageBind                     # the code from ImageBind Model
 │   │   ├── common
@@ -240,12 +245,10 @@ B) Instruction data
     - `LLaVA` of the ***visual instruction data***, download it from [here](https://github.com/haotian-liu/LLaVA/blob/main/docs/Data.md), and then put it at [[./data/IT_data/T+X-T_data/llava]](./data/IT_data/T+X-T_data/llava/).
     - `Alpaca` of the ***textual instruction data***, download it from [here](https://github.com/tatsu-lab/stanford_alpaca), and then put it at [[./data/IT_data/T+X-T_data/alpaca/]](data/IT_data/T+X-T_data/alpaca/).
     - `VideoChat`, download the ***video instruction data*** [here](https://github.com/OpenGVLab/InternVideo/tree/main/Data/instruction_data), and then put it at [[./data/IT_data/T+X-T_data/videochat/]](data/IT_data/T+X-T_data/videochat/).
+    
+    Side note：After downloading dataset, please run `preprocess_dataset.py` to preprocess the dataset into a unified format.
   - T-X+T
-    - Run the following commands to construct the data. Please ensure the above `T+X-T` datasets are prepared. Afterward, the `T-X+T` file `instruction_data.json` will be saved at [[./data/IT_data/T-T+X_data]](./data/IT_data/T-T+X_data).
-      ```angular2html
-      cd ./code/dataset/
-      python instruction_dataset.py
-      ```  
+    - The `T-X+T` instruction datasets are saved at [[./data/IT_data/T-T+X_data]](./data/IT_data/T-T+X_data).
    
   - MosIT
     - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handling the copyright issue. Will release later._) 
@@ -287,20 +290,12 @@ Specifying the command:
 deepspeed --include localhost:0 --master_addr 127.0.0.1 --master_port 28459 train.py \
     --model nextgpt \
     --stage 1\
-    --dataset cc3m\
-    --data_path  ../data/T-X_pair_data/cc3m/cc3m.json\
-    --mm_root_path ../data/T-X_pair_data/cc3m/images/\
-    --embed_path ../data/embed/\
     --save_path  ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/\
     --log_path ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log/
 ```
 where the key arguments are:
 - `--include`: `localhost:0` indicating the GPT cuda number `0` of deepspeed.
 - `--stage`: training stage.
-- `--dataset`: the dataset name for training model.
-- `--data_path`: the data path for the training file.
-- `--mm_root_path`: the data path for the image/video/audio file.
-- `--embed_path`: the data path for the text embedding file.
 - `--save_path`: the directory which saves the trained delta weights. This directory will be automatically created.
 - `--log_path`: the directory which saves the log file.
 
@@ -313,23 +308,17 @@ The whole NExT-GPT training involves 3 steps:
 
 - **Step-1**: Encoding-side LLM-centric Multimodal Alignment. This stage trains the ***input projection layer*** while freezing the ImageBind, LLM, output projection layer.
   
-  Just run the above `train.sh` script by setting:
-  -  `--stage 1`
-  - `--dataset x`, where `x` varies from [`cc3m`, `webvid`, `audiocap`]
-  - `--data_path ../.../xxx.json`, where `xxx` is the file name of the data in [[./data/T-X_pair_data]](./data/T-X_pair_data)
-  - `--mm_root_path .../.../x`, `x` varies from [`images`, `audios`, `videos`]
-
+  Just run the above `train.sh` script by setting: `--stage 1`
+  
   Also refer to the running config file [[./code/config/stage_1.yaml]](./code/config/stage_1.yaml) and deepspeed config file [[./code/dsconfig/stage_1.yaml]](./code/dsconfig/stage_1.yaml) for more step-wise configurations.
+
+  Note that the dataset used for training in this step is included `dataset_name_list` and the dataset name must precisely match the definition in [[./code/dataset/catalog.py]](./code/dataset/catalog.py)  
 
 
 
 - **Step-2**: Decoding-side Instruction-following Alignment. This stage trains the ***output projection layers*** while freezing the ImageBind, LLM, input projection layers.
 
-  Just run the above `train.sh` script by setting:
-  -  `--stage 2`
-  - `--dataset x`, where `x` varies from [`cc3m`, `webvid`, `audiocap`]
-  - `--data_path ../.../xxx.json`, where `xxx` is the file name of the data in [[./data/T-X_pair_data]](./data/T-X_pair_data)
-  - `--mm_root_path .../.../x`, `x` varies from [`images`, `audios`, `videos`]
+  Just run the above `train.sh` script by setting: `--stage 2`
 
   Also refer to the running config file [[./code/config/stage_2.yaml]](./code/config/stage_2.yaml) and deepspeed config file [[./code/dsconfig/stage_2.yaml]](./code/dsconfig/stage_2.yaml) for more step-wise configurations.
 
@@ -339,11 +328,7 @@ The whole NExT-GPT training involves 3 steps:
 
 - **Step-3**: Instruction Tuning. This stage instruction-tune 1) the ***LLM*** via LoRA, 2) ***input projection layer*** and 3) ***output projection layer*** on the instruction dataset.
 
-  Just run the above `train.sh` script by setting:
-  -  `--stage 3`
-  - `--dataset instruction`
-  - `--data_path ../.../xxx.json`, where `xxx` is the file name of the data in [[./data/IT_data/T+X-T_data]](./data/IT_data/T+X-T_data) or data in [[./data/IT_data/T+X-T_data]](./data/IT_data/T+X-T_data) or data in [[./data/IT_data/MosIT_data]](./data/IT_data/MosIT_data) 
-  - `--mm_root_path .../.../x`, `x` varies from [`images`, `audios`, `videos`]
+  Just run the above `train.sh` script by setting: `--stage 3`
 
   Also refer to the running config file [[./code/config/stage_3.yaml]](./code/config/stage_3.yaml) and deepspeed config file [[./code/dsconfig/stage_3.yaml]](./code/dsconfig/stage_3.yaml) for more step-wise configurations.
 
@@ -363,7 +348,7 @@ The whole NExT-GPT training involves 3 steps:
 First, loading the pre-trained NExT-GPT system.
 - **Step-1**: load `Frozen parameters`. Please refer to <a href='#Prepare Pre-trained Checkpoint'>3.1 Preparing Pre-trained Checkpoint</a>.
 
-- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system in [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [here](#). (_We are still working hard on optimizing the system, and will release the params shortly._)
+- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system in [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [here](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
 
 
 <span id='Deploy Demo System'/>
