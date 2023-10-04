@@ -247,8 +247,8 @@ B) Instruction data
     - `VideoChat`, download the ***video instruction data*** [here](https://github.com/OpenGVLab/InternVideo/tree/main/Data/instruction_data), and then put it at [[./data/IT_data/T+X-T_data/videochat/]](data/IT_data/T+X-T_data/videochat/).
     
     Side note：After downloading dataset, please run `preprocess_dataset.py` to preprocess the dataset into a unified format.
-  - T-X+T
-    - The `T-X+T` instruction datasets are saved at [[./data/IT_data/T-T+X_data]](./data/IT_data/T-T+X_data).
+  - T-X+T (T2M)
+    - The `T-X+T` instruction datasets (T2M) are saved at [[./data/IT_data/T-T+X_data]](./data/IT_data/T-T+X_data).
    
   - MosIT
     - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handling the copyright issue. Will release later._) 
@@ -348,7 +348,7 @@ The whole NExT-GPT training involves 3 steps:
 First, loading the pre-trained NExT-GPT system.
 - **Step-1**: load `Frozen parameters`. Please refer to <a href='#Prepare Pre-trained Checkpoint'>3.1 Preparing Pre-trained Checkpoint</a>.
 
-- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system in [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [here](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
+- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [huggingface](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
 
 
 <span id='Deploy Demo System'/>
