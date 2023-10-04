@@ -7,9 +7,9 @@ class DatasetCatalog:
         self.audiocap_enc = {
             "target": "dataset.audiocap_datase.AudioCapDataset",
             "params": dict(
-                data_path="../data/audiocap/audiocap.json",
-                mm_root_path="../data/audiocap/audios",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/audiocap/audiocap.json",
+                mm_root_path="../data/T-X_pair_data/audiocap/audios",
+                embed_path="../data/embed/",
                 dataset_type="AudioToText",
             ),
         }
@@ -17,9 +17,9 @@ class DatasetCatalog:
         self.webvid_enc = {
             "target": "dataset.webvid_dataset.WebvidDataset",
             "params": dict(
-                data_path="../data/webvid/webvid.json",
-                mm_root_path="../data/webvid/videos",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/webvid/webvid.json",
+                mm_root_path="../data/T-X_pair_data/webvid/videos",
+                embed_path="../data/embed/",
                 dataset_type="VideoToText",
             ),
         }
@@ -27,9 +27,9 @@ class DatasetCatalog:
         self.cc3m_enc = {
             "target": "dataset.cc3m_dataset.CC3MDataset",
             "params": dict(
-                data_path="../data/cc3m/cc3m.json",
-                mm_root_path="../data/cc3m/images",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/cc3m/cc3m.json",
+                mm_root_path="../data/T-X_pair_data/cc3m/images",
+                embed_path="../data/embed/",
                 dataset_type="ImageToText",
             ),
         }
@@ -41,9 +41,9 @@ class DatasetCatalog:
         self.audiocap_dec = {
             "target": "dataset.audiocap_dataset.AudioCapDataset",
             "params": dict(
-                data_path="../data/audiocap/audiocap.json",
-                mm_root_path="../data/audiocap/audios",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/audiocap/audiocap.json",
+                mm_root_path="../data/T-X_pair_data/audiocap/audios",
+                embed_path="../data/embed/",
                 dataset_type="TextToAudio",
             ),
         }
@@ -51,9 +51,9 @@ class DatasetCatalog:
         self.webvid_dec = {
             "target": "dataset.webvid_dataset.WebvidDataset",
             "params": dict(
-                data_path="../data/webvid/webvid.json",
-                mm_root_path="../data/webvid/videos",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/webvid/webvid.json",
+                mm_root_path="../data/T-X_pair_data/webvid/videos",
+                embed_path="../data/embed/",
                 dataset_type="TextToVideo",
             ),
         }
@@ -61,9 +61,9 @@ class DatasetCatalog:
         self.cc3m_dec = {
             "target": "dataset.cc3m_dataset.CC3MDataset",
             "params": dict(
-                data_path="../data/cc3m/cc3m.json",
-                mm_root_path="../data/cc3m/images",
-                embed_path="./embed/",
+                data_path="../data/T-X_pair_data/cc3m/cc3m.json",
+                mm_root_path="../data/T-X_pair_data/cc3m/images",
+                embed_path="../data/embed/",
                 dataset_type="TextToImage",
             ),
         }
