@@ -26,10 +26,11 @@ from .utils import process_caption
 class BaseDataset(Dataset):
     """Dataset for supervised fine-tuning."""
 
-    def __init__(self, data_path: str, mm_root_path: str, embed_path: str):
+    def __init__(self, data_path: str, mm_root_path: str, embed_path: str, dataset_type: str):
         super(BaseDataset, self).__init__()
         self.embed_path = embed_path
         self.mm_path_list, self.caption_list = [], []
+        self.dataset_type_list = []
 
     def __len__(self):  # number of instances
         return len(self.mm_path_list)
@@ -38,14 +39,17 @@ class BaseDataset(Dataset):
         with open(os.path.join(self.embed_path, str(os.path.basename(self.mm_path_list[i])) + '.npy'), 'rb') as f:
             caption_embs = torch.from_numpy(np.load(f, allow_pickle=True))  # (num_clip_tokens, 768)
 
-        return dict(mm_paths=self.mm_path_list[i], output_texts=self.caption_list[i], caption_embs=caption_embs)
+        return dict(mm_paths=self.mm_path_list[i], output_texts=self.caption_list[i], caption_embs=caption_embs,
+                    dataset_types=self.dataset_type_list[i])
 
     def collate(self, instances):
-        mm_paths, output_texts, caption_embs = tuple(
-            [instance[key] for instance in instances] for key in ("mm_paths", "output_texts", "caption_embs"))
+        mm_paths, output_texts, caption_embs, dataset_types = tuple(
+            [instance[key] for instance in instances] for key in
+            ("mm_paths", "output_texts", "caption_embs", "dataset_types"))
         return dict(
             mm_paths=mm_paths,
             output_texts=output_texts,
-            caption_embs=caption_embs
+            caption_embs=caption_embs,
+            dataset_types=dataset_types
         )
 

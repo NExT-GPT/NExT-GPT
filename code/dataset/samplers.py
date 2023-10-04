@@ -164,3 +164,58 @@ class DistributedBatchSampler(data.sampler.BatchSampler):
         start = self.rank*self.batch_size//self.world_size
         end = (self.rank+1)*self.batch_size//self.world_size
         return batch[start:end]
+
+
+class DistributedMultiDatasetBatchSampler(data.sampler.BatchSampler):
+    """
+    This is a modality-blended batch sampler which allows to sample a batch data from different dataset alternatively.
+    """
+    def __init__(self, sampler, batch_size, dataset, drop_last, rank=-1, world_size=2, wrap_last=False, gradient_accumulation_steps=None):
+        super(DistributedMultiDatasetBatchSampler, self).__init__(sampler, batch_size, drop_last)
+        if rank == -1:
+            assert False, 'should not be here'
+        self.rank = rank
+        self.world_size = world_size
+        self.wrap_last = wrap_last
+        self.drop_last = drop_last
+        self.gradient_accumulation_steps = gradient_accumulation_steps
+        self.dataset = dataset
+        self.batch_size = batch_size
+        self.number_of_datasets = len(dataset.datasets.datasets)
+        self.largest_dataset_size = max([_cur_dataset.__len__() for _cur_dataset in dataset.datasets.datasets])
+
+    def __iter__(self):
+        samplers_list = []
+        sampler_iterators = []
+        for dataset_idx in range(self.number_of_datasets):
+            cur_dataset = self.dataset.datasets.datasets[dataset_idx]
+            sampler = torch.utils.data.RandomSampler(cur_dataset)
+            batch_sampler = DistributedBatchSampler(sampler, self.batch_size, self.drop_last, self.rank,
+                                                    self.world_size, self.wrap_last, self.gradient_accumulation_steps)
+            samplers_list.append(batch_sampler)
+            cur_sampler_iterator = batch_sampler.__iter__()
+            sampler_iterators.append(cur_sampler_iterator)
+
+        push_index_val = [0] + self.dataset.datasets.cumulative_sizes[:-1]
+        step = self.batch_size * self.number_of_datasets
+        samples_to_grab = self.batch_size
+        # for this case we want to get all samples in dataset, this force us to resample from the smaller datasets
+        epoch_samples = self.largest_dataset_size * self.number_of_datasets
+
+        for _ in range(0, epoch_samples, step):
+            for i in range(self.number_of_datasets):
+                # for j in range(self.world_size):
+                cur_batch_sampler = sampler_iterators[i]
+                try:
+                    cur_sample_org = cur_batch_sampler.__next__()
+                    cur_samples = [x + push_index_val[i] for x in cur_sample_org]
+                    yield cur_samples
+                except StopIteration:
+                    # got to the end of iterator - restart the iterator and continue to get samples
+                    # until reaching "epoch_samples"
+                    sampler_iterators[i] = samplers_list[i].__iter__()
+                    cur_batch_sampler = sampler_iterators[i]
+                    cur_sample_org = cur_batch_sampler.__next__()
+                    cur_samples = [x + push_index_val[i] for x in cur_sample_org]
+                    yield cur_samples
+

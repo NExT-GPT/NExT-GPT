@@ -27,8 +27,8 @@ import torch
 class WebvidDataset(BaseDataset):
     """webvid Dataset with video-text pairs."""
 
-    def __init__(self, data_path: str, mm_root_path: str, embed_path: str):
-        super(WebvidDataset, self).__init__(data_path, mm_root_path, embed_path)
+    def __init__(self, data_path: str, mm_root_path: str, embed_path: str, dataset_type: str):
+        super(WebvidDataset, self).__init__(data_path, mm_root_path, embed_path, dataset_type)
         self.embed_path = embed_path
 
         print('Load WebVid dataset ...')
@@ -41,3 +41,4 @@ class WebvidDataset(BaseDataset):
             self.caption_list.append(process_caption(one_caption))
 
         print(f'[!] collect {len(self.mm_path_list)} samples for training')
+        self.dataset_type_list = [dataset_type for _ in range(len(self.caption_list))]

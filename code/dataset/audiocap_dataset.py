@@ -36,8 +36,8 @@ from .utils import process_caption
 class AudioCapDataset(BaseDataset):
     """Dataset for supervised fine-tuning."""
 
-    def __init__(self, data_path: str, mm_root_path: str, embed_path: str):
-        super(AudioCapDataset, self).__init__(data_path, mm_root_path, embed_path)
+    def __init__(self, data_path: str, mm_root_path: str, embed_path: str, dataset_type: str):
+        super(AudioCapDataset, self).__init__(data_path, mm_root_path, embed_path, dataset_type)
         self.embed_path = embed_path
 
         print('Load Audiocap dataset ...')
@@ -50,5 +50,6 @@ class AudioCapDataset(BaseDataset):
             self.caption_list.append(process_caption(one_caption))
 
         print(f'[!] collect {len(self.mm_path_list)} samples for training')
+        self.dataset_type_list = [dataset_type for _ in range(len(self.caption_list))]
 
 
