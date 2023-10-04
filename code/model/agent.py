@@ -42,11 +42,11 @@ class DeepSpeedAgent:
 
         self.writer.add_scalar('loss', loss, current_step)
         self.writer.add_scalar('mle_acc', mle_acc, current_step)
-        if isinstance(mse_loss, list):
-            self.writer.add_scalar('img_mse_loss', mse_loss[0], current_step)
-            self.writer.add_scalar('vid_mse_loss', mse_loss[1], current_step)
-            self.writer.add_scalar('aud_mse_loss', mse_loss[2], current_step)
-        elif isinstance(mse_loss, torch.Tensor):
+        # if isinstance(mse_loss, list):
+        #     self.writer.add_scalar('img_mse_loss', mse_loss[0], current_step)
+        #     self.writer.add_scalar('vid_mse_loss', mse_loss[1], current_step)
+        #     self.writer.add_scalar('aud_mse_loss', mse_loss[2], current_step)
+        if isinstance(mse_loss, torch.Tensor):
             self.writer.add_scalar('mse_loss', mse_loss, current_step)
         else:
             pass
