@@ -13,6 +13,7 @@ import scipy
 from config import *
 import imageio
 import argparse
+import re
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 
@@ -22,7 +23,6 @@ parser = argparse.ArgumentParser(description='train parameters')
 parser.add_argument('--model', type=str, default='nextgpt')
 parser.add_argument('--nextgpt_ckpt_path', type=str)  # the delta parameters trained in each stages
 parser.add_argument('--stage', type=int, default=3)  # the training stage
-parser.add_argument('--modality', type=list, default=['image', 'video', 'audio', 'text'])
 args = parser.parse_args()
 args = vars(args)
 args.update(load_config(args))
@@ -32,7 +32,7 @@ model.load_state_dict(delta_ckpt, strict=False)
 model = model.eval().half().cuda()
 print(f'[!] init the 7b model over ...')
 
-g_cuda = torch.Generator(device='cuda').manual_seed(1337)
+g_cuda = torch.Generator(device='cuda').manual_seed(13)
 
 filter_value = -float('Inf')
 min_word_tokens = 10
@@ -98,15 +98,49 @@ def parse_text(text, image_path, video_path, audio_path):
                     line = line.replace("$", "&#36;")
                 lines[i] = "<br>" + line
     text = "".join(lines) + "<br>"
+    res_text = ''
+    split_text = re.split(r' <|> ', text)
+    image_path_list, video_path_list, audio_path_list = [], [], []
+    for st in split_text:
+        if st.startswith('<Image>'):
+            pattern = r'Image>(.*?)<\/Image'
+            matches = re.findall(pattern, text)
+            for m in matches:
+                image_path_list.append(m)
+        elif st.startswith('<Audio>'):
+            pattern = r'Audio>(.*?)<\/Audio'
+            matches = re.findall(pattern, text)
+            for m in matches:
+                audio_path_list.append(m)
+        elif st.startswith('<Video>'):
+            pattern = r'Video>(.*?)<\/Video'
+            matches = re.findall(pattern, text)
+            for m in matches:
+                video_path_list.append(m)
+        else:
+            res_text += st
+    text = res_text
     if image_path is not None:
-        text += f'<img src="./file={image_path}" style="display: inline-block;"><br>'
+        text += f'<img src="./file={image_path}" style="display: inline-block;width: 250px;max-height: 400px;"><br>'
         outputs = f'<Image>{image_path}</Image> ' + outputs
+    if len(image_path_list) > 0:
+        for i in image_path_list:
+            text += f'<img src="./file={i}" style="display: inline-block;width: 250px;max-height: 400px;"><br>'
+            outputs = f'<Image>{i}</Image> ' + outputs
     if video_path is not None:
-        text += f' <video controls playsinline height="320" width="240" style="display: inline-block;"  src="./file={video_path}"></video6><br>'
+        text += f' <video controls playsinline width="500" style="display: inline-block;"  src="./file={video_path}"></video><br>'
         outputs = f'<Video>{video_path}</Video> ' + outputs
+    if len(video_path_list) > 0:
+        for i in video_path_list:
+            text += f' <video controls playsinline width="500" style="display: inline-block;"  src="./file={i}"></video><br>'
+            outputs = f'<Video>{i}</Video> ' + outputs
     if audio_path is not None:
         text += f'<audio controls playsinline><source src="./file={audio_path}" type="audio/wav"></audio><br>'
         outputs = f'<Audio>{audio_path}</Audio> ' + outputs
+    if len(audio_path_list) > 0:
+        for i in audio_path_list:
+            text += f'<audio controls playsinline><source src="./file={i}" type="audio/wav"></audio><br>'
+            outputs = f'<Audio>{i}</Audio> ' + outputs
     # text = text[::-1].replace(">rb<", "", 1)[::-1]
     text = text[:-len("<br>")].rstrip() if text.endswith("<br>") else text
     return text, outputs
