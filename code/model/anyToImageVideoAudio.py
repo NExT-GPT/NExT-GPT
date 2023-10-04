@@ -44,7 +44,6 @@ class NextGPTModel(nn.Module):
         self.device = torch.cuda.current_device()
         self.stage = args['stage']
         print('args max_length', args['max_length'])
-        print('args modality', args['modality'])
 
         imagebind_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'imagebind_ckpt', self.args['imagebind_version'])
         print(f'Initializing visual encoder from {imagebind_ckpt_path} ...')
@@ -56,10 +55,10 @@ class NextGPTModel(nn.Module):
         self.visual_encoder.eval()
         print('Visual encoder initialized.')
 
-        vicuna_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'vicuna_ckpt', self.args['vicuna_version'])
-        print(f'Initializing language decoder from {vicuna_ckpt_path} ...')
+        self.vicuna_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'vicuna_ckpt', self.args['vicuna_version'])
+        print(f'Initializing language decoder from {self.vicuna_ckpt_path} ...')
 
-        self.llama_model = LlamaForCausalLM.from_pretrained(vicuna_ckpt_path)
+        self.llama_model = LlamaForCausalLM.from_pretrained(self.vicuna_ckpt_path)
         if self.args['freeze_lm']:
             print("Freezing the LLaMa ...")
             for param in self.llama_model.parameters():
@@ -82,7 +81,7 @@ class NextGPTModel(nn.Module):
         print('Language decoder initialized.')
 
         # use the new trained tokenizer
-        tokenizer_path = vicuna_ckpt_path
+        tokenizer_path = self.vicuna_ckpt_path
         print(f'Initializing tokenizer from {tokenizer_path} ...')
         self.llama_tokenizer = LlamaTokenizer.from_pretrained(tokenizer_path, use_fast=False)
         self.llama_tokenizer.pad_token = self.llama_tokenizer.eos_token
@@ -421,14 +420,14 @@ class NextGPTModel(nn.Module):
         In the stage 1: training the encoding-side alignment via image/video/audio caption tasks
         modality: the input modality for each caption task, it could be 'image', 'video' or 'audio'.
         """
-        modality = get_modality(inputs['mm_paths'])
-        if modality == 'image':
+        dataset_type = inputs['dataset_types'][0]
+        if dataset_type == 'ImageToText':
             image_paths = inputs['mm_paths']
             mm_embeds, _ = self.encode_image(image_paths)
-        elif modality == 'video':
+        elif dataset_type == 'VideoToText':
             video_paths = inputs['mm_paths']
             mm_embeds, _ = self.encode_video(video_paths)
-        elif modality == 'audio':
+        elif dataset_type == 'AudioToText':
             audio_paths = inputs['mm_paths']
             mm_embeds, _ = self.encode_audio(audio_paths)
         else:
@@ -463,28 +462,28 @@ class NextGPTModel(nn.Module):
         representation of signal tokens and caption from text encoder within the respective diffusion models.
         modality: the output modality for each caption.
         """
-        modality = get_modality(inputs['mm_paths'])
-        if modality == 'image':
+        dataset_type = inputs['dataset_types'][0]
+        if dataset_type == 'TextToImage':
             loss, gen_acc, mse_loss = self._train_with_mode(texts=inputs['output_texts'],
-                                                            modality=modality,
+                                                            modality='image',
                                                             num_gen_tokens=self.args['num_gen_img_tokens'],
                                                             text_hidden_fcs=self.gen_text_hidden_fcs,
                                                             gen_token_idx=self.args['gen_img_token_idx'],
                                                             text_emb_layers=self.args['text_emb_to_img_layers'],
                                                             text_prompt_embeddins=inputs['caption_embs'],
                                                             stage=self.stage)
-        elif modality == 'video':
+        elif dataset_type == 'TextToVideo':
             loss, gen_acc, mse_loss = self._train_with_mode(texts=inputs['output_texts'],
-                                                            modality=modality,
+                                                            modality='video',
                                                             num_gen_tokens=self.args['num_gen_video_tokens'],
                                                             text_hidden_fcs=self.gen_text_hidden_fcs_video,
                                                             gen_token_idx=self.args['gen_video_token_idx'],
                                                             text_emb_layers=self.args['text_emb_to_video_layers'],
                                                             text_prompt_embeddins=inputs['caption_embs'],
                                                             stage=self.stage)
-        elif modality == 'audio':
+        elif dataset_type == 'TextToAudio':
             loss, gen_acc, mse_loss = self._train_with_mode(texts=inputs['output_texts'],
-                                                            modality=modality,
+                                                            modality='audio',
                                                             num_gen_tokens=self.args['num_gen_audio_tokens'],
                                                             text_hidden_fcs=self.gen_text_hidden_fcs_audio,
                                                             gen_token_idx=self.args['gen_audio_token_idx'],
@@ -504,43 +503,39 @@ class NextGPTModel(nn.Module):
         gen_acc = 0
         mse_loss = []
 
-        target_modality = self.args['modality']
-
-        for modality in target_modality:
-            if modality == 'image':
-                _loss, _gen_acc, _mse_loss = self._train_with_mode(inputs['image_output_texts'], None, modality,
-                                                                   self.args['num_gen_img_tokens'],
-                                                                   self.gen_text_hidden_fcs,
-                                                                   self.args['gen_img_token_idx'],
-                                                                   self.args['text_emb_to_img_layers'],
-                                                                   inputs['image_clip_embs'], stage=self.stage)
-            elif modality == 'video':
-                _loss, _gen_acc, _mse_loss = self._train_with_mode(inputs['video_output_texts'], None, modality,
-                                                                   self.args['num_gen_video_tokens'],
-                                                                   self.gen_text_hidden_fcs_video,
-                                                                   self.args['gen_video_token_idx'],
-                                                                   self.args['text_emb_to_video_layers'],
-                                                                   inputs['video_clip_embs'], loss_scale=2, stage=self.stage)
-            elif modality == 'audio':
-                _loss, _gen_acc, _mse_loss = self._train_with_mode(inputs['audio_output_texts'], None, modality,
-                                                                   self.args['num_gen_audio_tokens'],
-                                                                   self.gen_text_hidden_fcs_audio,
-                                                                   self.args['gen_audio_token_idx'],
-                                                                   self.args['text_emb_to_audio_layers'],
-                                                                   inputs['audio_clip_embs'], stage=self.stage)
-            else:
-                image_paths = inputs['text_path_list']
-                img_embeds, _ = self.encode_image(image_paths)
-                _loss1, _gen_acc1, _ = self._train_with_mode(inputs['visual_QA_list'], img_embeds, modality=modality, stage=self.stage)
-
-                _loss2, _gen_acc2, _ = self._train_with_mode(inputs['output_texts'], None, modality=modality, stage=self.stage)
-                _loss = _loss1 + _loss1
-                _gen_acc = (_gen_acc1 + _gen_acc2) / 2
-                # _mse_loss = _mse_loss1 + _mse_loss2
-            loss += _loss
-            gen_acc += _gen_acc
-            mse_loss.append(_mse_loss)
-        gen_acc = gen_acc / len(target_modality)
+        dataset_type = inputs['dataset_types'][0]
+        if dataset_type == 'TextToImage':
+            loss, gen_acc, mse_loss = self._train_with_mode(inputs['output_texts'], None, 'image',
+                                                            self.args['num_gen_img_tokens'],
+                                                            self.gen_text_hidden_fcs,
+                                                            self.args['gen_img_token_idx'],
+                                                            self.args['text_emb_to_img_layers'],
+                                                            inputs['caption_embs'], stage=self.stage)
+        elif dataset_type == 'TextToVideo':
+            loss, gen_acc, mse_loss = self._train_with_mode(inputs['output_texts'], None, 'video',
+                                                            self.args['num_gen_video_tokens'],
+                                                            self.gen_text_hidden_fcs_video,
+                                                            self.args['gen_video_token_idx'],
+                                                            self.args['text_emb_to_video_layers'],
+                                                            inputs['caption_embs'], loss_scale=2,
+                                                            stage=self.stage)
+        elif dataset_type == 'TextToAudio':
+            loss, gen_acc, mse_loss = self._train_with_mode(inputs['output_texts'], None, 'audio',
+                                                            self.args['num_gen_audio_tokens'],
+                                                            self.gen_text_hidden_fcs_audio,
+                                                            self.args['gen_audio_token_idx'],
+                                                            self.args['text_emb_to_audio_layers'],
+                                                            inputs['caption_embs'], stage=self.stage)
+        elif dataset_type == 'ImageToText':
+            image_paths = inputs['mm_paths']
+            img_embeds, _ = self.encode_image(image_paths)
+            loss, gen_acc, _ = self._train_with_mode(inputs['output_texts'], img_embeds, modality='text',
+                                                     stage=self.stage)
+        elif dataset_type == 'TextToText':
+            loss, gen_acc, _ = self._train_with_mode(inputs['output_texts'], None, modality='text',
+                                                     stage=self.stage)
+        else:
+            raise NotImplementedError
         return loss, gen_acc, mse_loss
 
     def _stage_4_training(self, inputs):
@@ -684,129 +679,49 @@ class NextGPTModel(nn.Module):
         return:
             out: the output tokens index
             output_embeddings: output embeddings for synthesizing images
-            output_logits: the logits of output tokens
             video_output_embedding: output embeddings for synthesizing video
+            audio_output_embedding: output embeddings for synthesizing audio
         """
-        with torch.no_grad():  # no tracking history
-            # init output with image tokens
-            out = None
-            output_embeddings = []
-            video_output_embedding = []
-            audio_output_embedding = []
-            output_logits = []
+        stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=inputs['stops_id'], encounters=1)])
 
-            for i in range(inputs['max_tgt_len']):
-                output = self.llama_model(inputs_embeds=input_embeds, use_cache=False,
-                                          # top_p=top_p,
-                                          # temperature=temperature,
-                                          # do_sample=True,
-                                          output_hidden_states=True)
+        outputs = self.llama_model.generate(
+            inputs_embeds=input_embeds,
+            max_new_tokens=inputs['max_tgt_len'],
+            top_p=inputs['top_p'],
+            temperature=inputs['temperature'],
+            # repeat_pen,
+            do_sample=True,
+            use_cache=True,
+            stopping_criteria=stopping_criteria,
+            output_hidden_states=True,
+            return_dict_in_generate=True,
+            output_attentions=True
+        )
 
-                if 'image' in self.args['modality']:
-                    for idx in self.args['text_emb_to_img_layers']:
-                        output_embeddings.append(output.hidden_states[idx])
-                if 'video' in self.args['modality']:
-                    for idx in self.args['text_emb_to_video_layers']:
-                        video_output_embedding.append(output.hidden_states[idx])
-                if 'audio' in self.args['modality']:
-                    for idx in self.args['text_emb_to_audio_layers']:
-                        audio_output_embedding.append(output.hidden_states[idx])
+        output_embeddings = []
+        video_output_embedding = []
+        audio_output_embedding = []
+        out = outputs.sequences
+        for _hidden_states in outputs.hidden_states[1:]:
+            for idx in self.args['text_emb_to_img_layers']:
+                output_embeddings.append(_hidden_states[idx])
+            for idx in self.args['text_emb_to_video_layers']:
+                video_output_embedding.append(_hidden_states[idx])
+            for idx in self.args['text_emb_to_audio_layers']:
+                audio_output_embedding.append(_hidden_states[idx])
+        output_embeddings = torch.cat(output_embeddings, dim=1)
+        video_output_embedding = torch.cat(video_output_embedding, dim=1)
+        audio_output_embedding = torch.cat(audio_output_embedding, dim=1)
 
-                stop_count = 0
-                stop_words_ids = [torch.tensor(x).to(self.device) for x in
-                                  inputs['stops_id']]  # '###' can be encoded in two different ways.
-                for stop in stop_words_ids:
-                    if not (out is None) and torch.all((stop == out[0][-len(stop):])).item():
-                        stop_count += 1
-                if stop_count >= inputs['ENCOUNTERS']:
-                    break
-
-                logits = output.logits[:, -1, :]  # (N, vocab_size)
-                output_logits.append(logits)
-
-                # Prevent the model from generating the [IMG1..n] tokens.
-                logits[:, self.args['gen_img_token_idx'][1:]] = inputs['filter_value']
-                if self.args['gen_img_token_idx'] and self.args['gen_img_token_idx'][0] != -1:
-                    if i < inputs['min_word_tokens']:
-                        # Eliminate probability of generating [IMG] if this is earlier than min_word_tokens.
-                        logits[:, self.args['gen_img_token_idx']] = inputs['filter_value']
-
-                # Prevent the model from generating the [VID1..n] tokens.
-                logits[:, self.args['gen_video_token_idx'][1:]] = inputs['filter_value']
-                if self.args['gen_video_token_idx'] and self.args['gen_video_token_idx'][0] != -1:
-                    if i < inputs['min_word_tokens']:
-                        # Eliminate probability of generating [IMG] if this is earlier than min_word_tokens.
-                        logits[:, self.args['gen_video_token_idx']] = inputs['filter_value']
-
-                # Prevent the model from generating the [AUD1..n] tokens.
-                logits[:, self.args['gen_audio_token_idx'][1:]] = inputs['filter_value']
-                if self.args['gen_audio_token_idx'] and self.args['gen_audio_token_idx'][0] != -1:
-                    if i < inputs['min_word_tokens']:
-                        # Eliminate probability of generating [IMG] if this is earlier than min_word_tokens.
-                        logits[:, self.args['gen_audio_token_idx']] = inputs['filter_value']
-
-                if inputs['temperature'] == 0.0:
-                    if inputs['top_p'] != 1.0:
-                        raise ValueError('top_p cannot be set if temperature is 0 (greedy decoding).')
-                    next_token = torch.argmax(logits, keepdim=True, dim=-1)  # (N, 1)
-                else:
-                    logits = logits / inputs['temperature']
-
-                    # Apply top-p filtering.
-                    if inputs['top_p'] < 1.0:
-                        top_p = inputs['top_p']
-                        assert inputs['top_p'] > 0, f'top_p should be above 0, got {top_p} instead.'
-                        sorted_logits, sorted_indices = torch.sort(logits, descending=True)  # (N, D) and (N, D)
-                        cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)  # (N, D)
-
-                        # Remove tokens with cumulative probability above the threshold
-                        sorted_indices_to_remove = cumulative_probs > inputs['top_p']
-                        # Shift the indices to the right to keep also the first token above the threshold
-                        sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
-                        sorted_indices_to_remove[..., 0] = 0
-                        # print('sorted_indices shape: ', sorted_indices.shape)
-                        for j in range(sorted_indices.shape[0]):
-                            indices_to_remove = sorted_indices[j, sorted_indices_to_remove[j, :]]
-                            logits[j, indices_to_remove] = inputs['filter_value']
-                    next_token = torch.argmax(logits, keepdim=True, dim=-1)  # (N, 1)
-                    # token_weights = torch.nn.functional.sigmoid(logits.exp())  # (N, vocab_size)
-                    # print(logits.sum())
-                    # print(token_weights[-20:])
-                    # next_token = torch.multinomial(logits, 1)  # (N, 1)
-                    # print('next token 2: ', next_token)
-
-                # Force generation of the remaining [IMG] tokens if [IMG0] is generated.
-                if next_token.shape[0] == 1 and next_token.item() == self.args['gen_img_token_idx'][0]:
-                    next_token = torch.tensor(self.args['gen_img_token_idx'])[None, :].long().to(
-                        input_embeds.device)  # (1, num_tokens)
-                # Force generation of the remaining [VID] tokens if [VID0] is generated.
-                elif next_token.shape[0] == 1 and next_token.item() == self.args['gen_video_token_idx'][0]:
-                    next_token = torch.tensor(self.args['gen_video_token_idx'])[None, :].long().to(
-                        input_embeds.device)  # (1, num_tokens)
-                # Force generation of the remaining [AUD] tokens if [AUD0] is generated.
-                elif next_token.shape[0] == 1 and next_token.item() == self.args['gen_audio_token_idx'][0]:
-                    next_token = torch.tensor(self.args['gen_audio_token_idx'])[None, :].long().to(
-                        input_embeds.device)  # (1, num_tokens)
-                else:
-                    next_token = next_token.long().to(input_embeds.device)
-
-                if out is not None:
-                    out = torch.cat([out, next_token], dim=-1)
-                else:
-                    out = next_token
-
-                next_embedding = self.input_embeddings(next_token)
-                input_embeds = torch.cat([input_embeds, next_embedding], dim=1)
-
-        return out, output_embeddings, output_logits, video_output_embedding, audio_output_embedding
+        return out, output_embeddings, video_output_embedding, audio_output_embedding
 
     def generate_images(self, generated_ids, embeddings, all_gen_idx, generation_model=None,
                         guidance_scale=7.5, num_inference_steps=40):
         """
         To generate the images based on the embeddings
         generated_ids: the  index of the generated tokens
-        embedding: the embeddings for synthesizing videos
-        all_gen_idx: the index of [VID0] in the generated_ids
+        embedding: the embeddings for synthesizing images
+        all_gen_idx: the index of [IMG0] in the generated_ids
         """
         last_ret_idx = 0
         return_outputs = []
@@ -817,7 +732,7 @@ class NextGPTModel(nn.Module):
                    gen_idx:gen_idx + self.args['num_gen_img_tokens']].cpu().detach().numpy().tolist() == self.args[
                        'gen_img_token_idx'], (
                 generated_ids[0, gen_idx:gen_idx + self.args['num_gen_img_tokens']], self.args['gen_img_token_idx'])
-            raw_emb = embeddings[:, gen_idx:gen_idx + self.args['num_gen_img_tokens'], :]  # (1, 8, 4096)
+            raw_emb = embeddings[:, gen_idx - 1:gen_idx - 1 + self.args['num_gen_img_tokens'], :]  # (1, 8, 4096)
 
             # Produce generation embedding.
             gen_prefix = ' '.join([f'[IMG{i}]' for i in range(self.args['num_gen_img_tokens'])])
@@ -866,7 +781,7 @@ class NextGPTModel(nn.Module):
                        'gen_video_token_idx'], (
                 generated_ids[0, gen_idx:gen_idx + self.args['num_gen_video_tokens']],
                 self.args['gen_video_token_idx'])
-            raw_emb = embeddings[:, gen_idx:gen_idx + self.args['num_gen_video_tokens'], :]  # (1, 8, 4096)
+            raw_emb = embeddings[:, gen_idx - 1:gen_idx - 1 + self.args['num_gen_video_tokens'], :]  # (1, 8, 4096)
             # print(f'gen_idx: {gen_idx}')
             # print('4', raw_emb.size())
             # assert len(self.args['text_emb_to_video_layers']) == 1
@@ -906,8 +821,8 @@ class NextGPTModel(nn.Module):
         """
         To generate videos based on the embeddings
         generated_ids: the  index of the generated tokens
-        embedding: the embeddings for synthesizing videos
-        all_gen_idx: the index of [VID0] in the generated_ids
+        embedding: the embeddings for synthesizing audios
+        all_gen_idx: the index of [AUD0] in the generated_ids
         """
         return_outputs = []
         last_ret_idx = 0
@@ -919,7 +834,7 @@ class NextGPTModel(nn.Module):
                        'gen_audio_token_idx'], (
                 generated_ids[0, gen_idx:gen_idx + self.args['num_gen_audio_tokens']],
                 self.args['gen_audio_token_idx'])
-            raw_emb = embeddings[:, gen_idx:gen_idx + self.args['num_gen_audio_tokens'], :]  # (1, 8, 4096)
+            raw_emb = embeddings[:, gen_idx - 1:gen_idx - 1 + self.args['num_gen_audio_tokens'], :]  # (1, 8, 4096)
             # print(f'gen_idx: {gen_idx}')
             # print('raw_emb 4', raw_emb.size())
             # assert len(self.args['text_emb_to_video_layers']) == 1
@@ -996,7 +911,7 @@ class NextGPTModel(nn.Module):
         # init output with image tokens
 
         input_embeds = self.prepare_generation_embedding(inputs)
-        generated_ids, generated_embeddings, _, generated_video_embeddings, generated_audio_embeddings = self.generate_tokens_embeddings(
+        generated_ids, generated_image_embeddings, generated_video_embeddings, generated_audio_embeddings = self.generate_tokens_embeddings(
             inputs, input_embeds)
 
         return_outputs = []
@@ -1023,21 +938,13 @@ class NextGPTModel(nn.Module):
             return_outputs.append(caption)
         else:
             if len(all_gen_img_idx) > 0:
-                embeddings = generated_embeddings[-1][:, input_embeds.shape[1]:]
-                # embeddings = embeddings[:, :trunc_idx] if trunc_idx > 0 else embeddings
-                # sd_pipe = StableDiffusionPipeline.from_pretrained(self.args['image_generation_ckpt_path'],
-                #                                                   torch_dtype=torch.float16).to(self.device)
-                img_outputs = self.generate_images(generated_ids, embeddings, all_gen_img_idx, None,
+                img_outputs = self.generate_images(generated_ids, generated_image_embeddings, all_gen_img_idx, None,
                                                    guidance_scale=inputs['guidance_scale_for_img'],
                                                    num_inference_steps=inputs['num_inference_steps_for_img'],
                                                    )
                 return_outputs.append({'img': img_outputs})
             if len(all_gen_vid_idx) > 0:
-                video_embeddings = generated_video_embeddings[-1][:, input_embeds.shape[1]:]
-                # video_embeddings = video_embeddings[:, :trunc_idx] if trunc_idx > 0 else video_embeddings
-                # vd_pipe = TextToVideoSDPipeline.from_pretrained(self.args['video_generation_ckpt_path'],
-                #                                                 torch_dtype=torch.float16).to(self.device)
-                vid_outputs = self.generate_videos(generated_ids, video_embeddings, all_gen_vid_idx, None,
+                vid_outputs = self.generate_videos(generated_ids, generated_video_embeddings, all_gen_vid_idx, None,
                                                    guidance_scale=inputs['guidance_scale_for_vid'],
                                                    num_inference_steps=inputs['num_inference_steps_for_vid'],
                                                    height=inputs['height'], width=inputs['width'],
@@ -1045,11 +952,7 @@ class NextGPTModel(nn.Module):
                 return_outputs.append({'vid': vid_outputs})
 
             if len(all_gen_aud_idx) > 0:
-                audio_embeddings = generated_audio_embeddings[-1][:, input_embeds.shape[1]:]
-                # audio_embeddings = audio_embeddings[:, :trunc_idx] if trunc_idx > 0 else audio_embeddings
-                # ad_pipe = AudioLDMPipeline.from_pretrained(self.args['audio_generation_ckpt_path'],
-                #                                            torch_dtype=torch.float16).to(self.device)
-                aud_outputs = self.generate_audios(generated_ids, audio_embeddings, all_gen_aud_idx, None,
+                aud_outputs = self.generate_audios(generated_ids, generated_audio_embeddings, all_gen_aud_idx, None,
                                                    guidance_scale=inputs['guidance_scale_for_aud'],
                                                    num_inference_steps=inputs['num_inference_steps_for_aud'],
                                                    audio_length_in_s=inputs['audio_length_in_s'])
