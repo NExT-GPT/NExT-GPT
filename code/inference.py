@@ -99,23 +99,11 @@ if __name__ == '__main__':
 
     g_cuda = torch.Generator(device='cuda').manual_seed(1337)
     args = {'model': 'nextgpt',
-            'imagebind_ckpt_path': '../pretrained_ckpt/imagebind_ckpt',
-            'vicuna_ckpt_path': '../pretrained_ckpt/vicuna_ckpt/7b_v0',
-            'delta_ckpt_path': './ckpt/nextgpt_7b_v0/',
-            'image_generation_ckpt_path': 'runwayml/stable-diffusion-v1-5',
-            'video_generation_ckpt_path': 'cerspense/zeroscope_v2_576w',
-            'audio_generation_ckpt_path': 'cvssp/audioldm-l-full',
+            'nextgpt_ckpt_path': '../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/',
             'max_length': 128,
-            'lora_r': 32,
-            'lora_alpha': 32,
-            'lora_dropout': 0.1,
+            'stage': 2,
             'root_dir': '../',
             'mode': 'validate',
-            'use_new_tokenizer': True,
-            'freeze_lm': False,
-            'freeze_input_proj': False,
-            'freeze_output_proj': False,
-            'modality': ['image', 'video', 'audio', 'text'],
             }
     args.update(load_config(args))
 
