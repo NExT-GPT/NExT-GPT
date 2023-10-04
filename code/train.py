@@ -8,13 +8,9 @@ def parser_args():
     parser = argparse.ArgumentParser(description='train parameters')
     parser.add_argument('--model', type=str, default='nextgpt')
     parser.add_argument('--mode', type=str, default='train', help='train or test or validation')
-    parser.add_argument('--dataset', type=str, default='cc3m', help='the dataset name, it could be cc3m, webvid, audiocap, instruction')
-    parser.add_argument('--data_path', type=str, default='cc3m/cc3m.json')  # training data
-    parser.add_argument('--mm_root_path', type=str, default='cc3m/images')  # training data
-    parser.add_argument('--embed_path', type=str, default='./embed/')  # the embedding path of video/audio/image caption via text encoder in different diffusion model
     parser.add_argument('--local_rank', default=0, type=int)
     parser.add_argument('--save_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/')
-    parser.add_argument('--log_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log_rest/')
+    parser.add_argument('--log_path', type=str, default='../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log/')
     parser.add_argument('--assets_path', type=str, default='./assets/')
 
     # model configurations
@@ -77,16 +73,11 @@ def main(**args):
             filename=f'{args["log_path"]}/train_{time.asctime()}.log',
             filemode='w'
         )
-    # train_data_list, train_iter_list = [], []
-    # for name in args['dataset']:
-    #     train_data, train_iter, sampler = load_dataset(args, name)
-    #     train_data_list.append(train_data)
-    #     train_iter_list.append(train_iter)
-    train_data, train_iter, sampler = load_dataset(args, args['dataset'])
+    train_data, train_iter, sampler = load_dataset(args, args['dataset_name_list'])
 
-    length = args['epochs'] * len(train_data) // args['world_size'] // dschf.config[
+    length = args['epochs'] * train_data.__len__() // args['world_size'] // dschf.config[
         'train_micro_batch_size_per_gpu']
-    total_steps = args['epochs'] * len(train_data) // dschf.config['train_batch_size']
+    total_steps = args['epochs'] * train_data.__len__() // dschf.config['train_batch_size']
     args['total_steps'] = total_steps
     agent = load_model(args)
     torch.distributed.barrier()
