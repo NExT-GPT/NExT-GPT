@@ -222,12 +222,12 @@ is the unified image/video/audio encoder. The pre-trained checkpoint can be down
 - `Vicuna`:
 first prepare the LLaMA by following the instructions [[here]](ckpt/pretrained_ckpt/prepare_vicuna.md). Then put the pre-trained model at [[./ckpt/pretrained_ckpt/vicuna_ckpt/]](ckpt/pretrained_ckpt/vicuna_ckpt/). 
 - `Image Diffusion`
-is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5) with version `
+is used to generate images. NExT-GPT uses [Stable Diffusion](https://.co/runwayml/stable-diffusion-v1-5) with version `
 v1-5`. (_will be automatically downloaded_)
 - `Audio Diffusion`
 for producing audio content. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`. (_will be automatically downloaded_)
 - `Video Diffusion`
-for the video generation. We employ [ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w) with version `v2_576w`. (_will be automatically downloaded_)
+for the video generation. We employ [ZeroScope](https://.co/cerspense/zeroscope_v2_576w) with version `v2_576w`. (_will be automatically downloaded_)
 
 
 
@@ -349,7 +349,7 @@ The whole NExT-GPT training involves 3 steps:
 First, loading the pre-trained NExT-GPT system.
 - **Step-1**: load `Frozen parameters`. Please refer to <a href='#Prepare Pre-trained Checkpoint'>3.1 Preparing Pre-trained Checkpoint</a>.
 
-- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [huggingface](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
+- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [Hugging Face](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
 
 
 <span id='Deploy Demo System'/>
