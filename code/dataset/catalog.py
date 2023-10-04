@@ -102,8 +102,8 @@ class DatasetCatalog:
         self.llava_instruction = {
             "target": "dataset.T+X-T_instruction_dataset.TX2TInstructionDataset",
             "params": dict(
-                data_path="../data/IT_data/T+X-T_data/llava.json",
-                mm_root_path="../data/IT_data/T+X-T_data/images",
+                data_path="../data/IT_data/T+X-T_data/llava/llava.json",
+                mm_root_path="../data/IT_data/T+X-T_data/llava/images",
                 dataset_type="ImageToText",
             ),
         }
@@ -111,7 +111,15 @@ class DatasetCatalog:
         self.alpaca_instruction = {
             "target": "dataset.T+X-T_instruction_dataset.TX2TInstructionDataset",
             "params": dict(
-                data_path="../data/IT_data/T+X-T_data/alpaca.json",
+                data_path="../data/IT_data/T+X-T_data/alpaca/alpaca.json",
                 dataset_type="TextToText",
+            ),
+        }
+
+        self.videochat_instruction = {
+            "target": "dataset.T+X-T_instruction_dataset.TX2TInstructionDataset",
+            "params": dict(
+                data_path="../data/IT_data/T+X-T_data/videochat/videochat.json",
+                dataset_type="VideoToText",
             ),
         }
