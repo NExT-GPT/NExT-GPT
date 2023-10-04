@@ -13,5 +13,6 @@ train:
     epochs: 1
     max_length: 512
     max_shard_size: 10GB
+    dataset_name_list: ['audio_instruction', 'video_instruction', 'image_instruction', 'llava_instruction', 'alpaca_instruction']
 
 

@@ -7,3 +7,4 @@ train:
     epochs: 1
     max_length: 512
     max_shard_size: 10GB
+    dataset_name_list: ['cc3m_enc', 'webvid_enc', 'audiocap_enc']
