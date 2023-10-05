@@ -1,5 +1,6 @@
 import logging
 import os.path
+from typing import List
 
 import torch
 from header import *
@@ -18,7 +19,7 @@ from .common.utils import *
 
 class StoppingCriteriaSub(StoppingCriteria):
 
-    def __init__(self, stops=[], encounters=1):
+    def __init__(self, stops: List = None, encounters: int = 1):
         super().__init__()
         self.stops = stops
         self.ENCOUNTERS = encounters
@@ -26,8 +27,12 @@ class StoppingCriteriaSub(StoppingCriteria):
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
         stop_count = 0
         for stop in self.stops:
-            # stop_count = torch.all((stop == input_ids[0][-len(stop):])).item()
-            stop_count = (stop == input_ids[0]).sum().item()
+            _stop = torch.tensor(stop).to(input_ids[0].device)
+            indices = torch.where(_stop[0] == input_ids)
+            for i in indices:
+                if len(i) > 0:
+                    if torch.all(input_ids[0][i:i + len(_stop)] == _stop):
+                        stop_count += 1
         if stop_count >= self.ENCOUNTERS:
             return True
         return False
@@ -45,7 +50,8 @@ class NextGPTModel(nn.Module):
         self.stage = args['stage']
         print('args max_length', args['max_length'])
 
-        imagebind_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'imagebind_ckpt', self.args['imagebind_version'])
+        imagebind_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'imagebind_ckpt',
+                                           self.args['imagebind_version'])
         print(f'Initializing visual encoder from {imagebind_ckpt_path} ...')
         self.visual_encoder, self.visual_hidden_size = \
             imagebind_model.imagebind_huge(pretrained=True, store_path=imagebind_ckpt_path)
@@ -55,7 +61,8 @@ class NextGPTModel(nn.Module):
         self.visual_encoder.eval()
         print('Visual encoder initialized.')
 
-        self.vicuna_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'vicuna_ckpt', self.args['vicuna_version'])
+        self.vicuna_ckpt_path = os.path.join(self.args['pretrained_ckpt_path'], 'vicuna_ckpt',
+                                             self.args['vicuna_version'])
         print(f'Initializing language decoder from {self.vicuna_ckpt_path} ...')
 
         self.llama_model = LlamaForCausalLM.from_pretrained(self.vicuna_ckpt_path)
@@ -272,53 +279,65 @@ class NextGPTModel(nn.Module):
 
         batch_size = input_ids.shape[0]
 
-        bos = torch.ones([batch_size, 1], dtype=input_ids.dtype, device=input_ids.device) * self.llama_tokenizer.bos_token_id  # bsz x 1
+        bos = torch.ones([batch_size, 1], dtype=input_ids.dtype,
+                         device=input_ids.device) * self.llama_tokenizer.bos_token_id  # bsz x 1
         if self.args['freeze_lm']:
-            p_after_embeds = self.llama_model.model.embed_tokens(input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_after_embeds = self.llama_model.model.embed_tokens(input_ids).expand(batch_size, -1,
+                                                                                   -1)  # bsz x s2 x embed_dim
             bos_embeds = self.llama_model.model.embed_tokens(bos)  # bsz x 1 x embed_dim
         else:
-            p_after_embeds = self.llama_model.model.model.embed_tokens(input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_after_embeds = self.llama_model.model.model.embed_tokens(input_ids).expand(batch_size, -1,
+                                                                                         -1)  # bsz x s2 x embed_dim
             bos_embeds = self.llama_model.model.model.embed_tokens(bos)  # bsz x 1 x embed_dim
         if img_embeds is not None:
             p_before = '### Human: <Img>'
-            p_before_tokens = self.llama_tokenizer(p_before, return_tensors="pt", add_special_tokens=False).to(self.device)
+            p_before_tokens = self.llama_tokenizer(p_before, return_tensors="pt", add_special_tokens=False).to(
+                self.device)
             # peft model need deeper call
             if self.args['freeze_lm']:
-                p_before_embeds = self.llama_model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
+                p_before_embeds = self.llama_model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1,
+                                                                                                        -1)  # bsz x s1 x embed_dim
             else:
-                p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            inputs_embeds = torch.cat([bos_embeds, p_before_embeds, img_embeds, p_after_embeds], dim=1).to(self.device)  # bsz x (1+s1+1+s2) x embed_dim
+                p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_tokens.input_ids).expand(
+                    batch_size, -1, -1)  # bsz x s1 x embed_dim
+            inputs_embeds = torch.cat([bos_embeds, p_before_embeds, img_embeds, p_after_embeds], dim=1).to(
+                self.device)  # bsz x (1+s1+1+s2) x embed_dim
 
             # create targets
             empty_targets = (
-                torch.ones([batch_size, 1 + p_before_embeds.size()[1]+1],  # 1 (bos) + s1 + 1
+                torch.ones([batch_size, 1 + p_before_embeds.size()[1] + 1],  # 1 (bos) + s1 + 1
                            dtype=torch.long).to(self.device).fill_(-100)
             )  # bsz x (1 + s1)
             targets = torch.cat([empty_targets, target_ids], dim=1).to(self.device)  # bsz x (1 + s1 + 1 + s2)
             assert inputs_embeds.size()[1] == targets.size()[1]
 
-            atts_prefix = torch.ones([batch_size, 1 + p_before_embeds.size()[1]+1], dtype=torch.long).to(self.device)  # bsz x (1 + s1 + 1)
+            atts_prefix = torch.ones([batch_size, 1 + p_before_embeds.size()[1] + 1], dtype=torch.long).to(
+                self.device)  # bsz x (1 + s1 + 1)
             attention_mask = torch.cat([atts_prefix, attention_mask], dim=1).to(self.device)
             assert attention_mask.size() == targets.size()  # bsz x (1 + s1 + 1 + s2)
         else:
             p_before = '### Human: '
-            p_before_tokens = self.llama_tokenizer(p_before, return_tensors="pt", add_special_tokens=False).to(self.device)
+            p_before_tokens = self.llama_tokenizer(p_before, return_tensors="pt", add_special_tokens=False).to(
+                self.device)
             # peft model need deeper call
             if self.args['freeze_lm']:
-                p_before_embeds = self.llama_model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
+                p_before_embeds = self.llama_model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1,
+                                                                                                        -1)  # bsz x s1 x embed_dim
             else:
-                p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            inputs_embeds = torch.cat([bos_embeds, p_before_embeds, p_after_embeds], dim=1).to(self.device)  # bsz x (1+s1+s2) x embed_dim
+                p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_tokens.input_ids).expand(
+                    batch_size, -1, -1)  # bsz x s1 x embed_dim
+            inputs_embeds = torch.cat([bos_embeds, p_before_embeds, p_after_embeds], dim=1).to(
+                self.device)  # bsz x (1+s1+s2) x embed_dim
 
             # create targets
             empty_targets = (
-                torch.ones([batch_size, 1+p_before_embeds.size()[1]],  # 1 (bos) + s1
+                torch.ones([batch_size, 1 + p_before_embeds.size()[1]],  # 1 (bos) + s1
                            dtype=torch.long).to(self.device).fill_(-100)
             )  # bsz x (1 + s1)
             targets = torch.cat([empty_targets, target_ids], dim=1).to(self.device)  # bsz x (1 + s1 + s2)
             assert inputs_embeds.size()[1] == targets.size()[1]
 
-            atts_prefix = torch.ones([batch_size, 1+p_before_embeds.size()[1]], dtype=torch.long).to(
+            atts_prefix = torch.ones([batch_size, 1 + p_before_embeds.size()[1]], dtype=torch.long).to(
                 self.device)  # bsz x (1 + s1)
             attention_mask = torch.cat([atts_prefix, attention_mask], dim=1).to(self.device)
             assert attention_mask.size() == targets.size()  # bsz x (1 + s1 + s2)
@@ -369,7 +388,7 @@ class NextGPTModel(nn.Module):
         gen_acc = (chosen_tokens.reshape(-1) == labels.reshape(-1)).to(torch.long)  # [B*S]
         valid_mask = (labels != -100).reshape(-1)
         valid_tokens = gen_acc & valid_mask  # [B*S]
-        gen_acc = valid_tokens.sum().item() / (valid_mask.sum().item()+1.0)
+        gen_acc = valid_tokens.sum().item() / (valid_mask.sum().item() + 1.0)
 
         if modality == 'text':
             return loss, gen_acc, torch.zeros_like(loss)
@@ -582,11 +601,15 @@ class NextGPTModel(nn.Module):
         p_before_token = self.llama_tokenizer('<Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         p_after_token = self.llama_tokenizer('</Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         if self.args['freeze_lm']:
-            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                   -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                 -1)  # bsz x s2 x embed_dim
         else:
-            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                         -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                       -1)  # bsz x s2 x embed_dim
         for m in matches:
             print('image path: ', m)
             if m.startswith('temp'):
@@ -604,11 +627,15 @@ class NextGPTModel(nn.Module):
         p_before_token = self.llama_tokenizer('<Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         p_after_token = self.llama_tokenizer('</Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         if self.args['freeze_lm']:
-            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                   -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                 -1)  # bsz x s2 x embed_dim
         else:
-            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                         -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                       -1)  # bsz x s2 x embed_dim
         for m in matches:
             print('Video path: ', m)
             if m.startswith('temp'):
@@ -626,11 +653,15 @@ class NextGPTModel(nn.Module):
         p_before_token = self.llama_tokenizer('<Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         p_after_token = self.llama_tokenizer('</Img>', add_special_tokens=False, return_tensors='pt').to(self.device)
         if self.args['freeze_lm']:
-            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                   -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                 -1)  # bsz x s2 x embed_dim
         else:
-            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1, -1)  # bsz x s1 x embed_dim
-            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1, -1)  # bsz x s2 x embed_dim
+            p_before_embeds = self.llama_model.model.model.embed_tokens(p_before_token.input_ids).expand(batch_size, -1,
+                                                                                                         -1)  # bsz x s1 x embed_dim
+            p_after_embeds = self.llama_model.model.model.embed_tokens(p_after_token.input_ids).expand(batch_size, -1,
+                                                                                                       -1)  # bsz x s2 x embed_dim
         for m in matches:
             print('Audio path: ', m)
             if m.startswith('temp'):
@@ -664,7 +695,8 @@ class NextGPTModel(nn.Module):
                     text_embeds = self.llama_model.model.embed_tokens(text_tokens.input_ids).expand(batch_size, -1, -1)
                     bos_embeds = self.llama_model.model.embed_tokens(bos)  # bsz x 1 x embed_dim
                 else:
-                    text_embeds = self.llama_model.model.model.embed_tokens(text_tokens.input_ids).expand(batch_size, -1, -1)
+                    text_embeds = self.llama_model.model.model.embed_tokens(text_tokens.input_ids).expand(batch_size,
+                                                                                                          -1, -1)
                     bos_embeds = self.llama_model.model.model.embed_tokens(bos)  # bsz x 1 x embed_dim
                 input_embeds.append(bos_embeds)
                 input_embeds.append(text_embeds)
@@ -959,5 +991,3 @@ class NextGPTModel(nn.Module):
                 return_outputs.append({'aud': aud_outputs})
 
         return return_outputs
-
-
