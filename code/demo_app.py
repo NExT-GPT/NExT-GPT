@@ -15,14 +15,12 @@ import imageio
 import argparse
 import re
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '7'
-
 # init the model
 
 parser = argparse.ArgumentParser(description='train parameters')
 parser.add_argument('--model', type=str, default='nextgpt')
 parser.add_argument('--nextgpt_ckpt_path', type=str)  # the delta parameters trained in each stages
-parser.add_argument('--stage', type=int, default=3)  # the training stage
+parser.add_argument('--stage', type=int, default=3)
 args = parser.parse_args()
 args = vars(args)
 args.update(load_config(args))
@@ -37,7 +35,7 @@ g_cuda = torch.Generator(device='cuda').manual_seed(13)
 filter_value = -float('Inf')
 min_word_tokens = 10
 gen_scale_factor = 4.0
-stops_id = [[835], [2277, 29937]]
+stops_id = [[835]]
 ENCOUNTERS = 1
 load_sd = True
 generator = g_cuda
