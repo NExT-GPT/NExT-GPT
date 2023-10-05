@@ -101,14 +101,14 @@ if __name__ == '__main__':
     args = {'model': 'nextgpt',
             'nextgpt_ckpt_path': '../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/',
             'max_length': 128,
-            'stage': 2,
+            'stage': 3,
             'root_dir': '../',
             'mode': 'validate',
             }
     args.update(load_config(args))
 
     model = NextGPTModel(**args)
-    delta_ckpt = torch.load(os.path.join(args['delta_ckpt_path'], 'pytorch_model.pt'), map_location=torch.device('cuda'))
+    delta_ckpt = torch.load(os.path.join(args['nextgpt_ckpt_path'], 'pytorch_model.pt'), map_location=torch.device('cuda'))
     # print(delta_ckpt)
     model.load_state_dict(delta_ckpt, strict=False)
     model = model.eval().half().cuda()
@@ -130,7 +130,7 @@ if __name__ == '__main__':
                      temperature=temperature, modality_cache=modality_cache,
                      filter_value=-float('Inf'), min_word_tokens=10,
                      gen_scale_factor=4.0, max_num_imgs=1,
-                     stops_id=[[835], [2277, 29937]],
+                     stops_id=[[835]],
                      load_sd=True,
                      generator=g_cuda,
                      guidance_scale_for_img=7.5,
