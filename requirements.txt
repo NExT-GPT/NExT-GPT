@@ -29,3 +29,5 @@ torchvision==0.14.1
 torchvision==0.14.1+cu116
 tqdm==4.65.0
 transformers==4.29.2
+omegaconf==2.3.0
+tensorboard==2.13.0
