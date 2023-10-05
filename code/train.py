@@ -75,9 +75,10 @@ def main(**args):
         )
     train_data, train_iter, sampler = load_dataset(args, args['dataset_name_list'])
 
-    length = args['epochs'] * train_data.__len__() // args['world_size'] // dschf.config[
+    train_num = max([_cur_dataset.__len__() for _cur_dataset in train_data.datasets.datasets]) * len(train_data.datasets)
+    length = args['epochs'] * train_num // args['world_size'] // dschf.config[
         'train_micro_batch_size_per_gpu']
-    total_steps = args['epochs'] * train_data.__len__() // dschf.config['train_batch_size']
+    total_steps = args['epochs'] * train_num // dschf.config['train_batch_size']
     args['total_steps'] = total_steps
     agent = load_model(args)
     torch.distributed.barrier()
