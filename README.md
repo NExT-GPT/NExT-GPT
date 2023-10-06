@@ -349,7 +349,7 @@ The whole NExT-GPT training involves 3 steps:
 First, loading the pre-trained NExT-GPT system.
 - **Step-1**: load `Frozen parameters`. Please refer to <a href='#Prepare Pre-trained Checkpoint'>3.1 Preparing Pre-trained Checkpoint</a>.
 
-- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [huggingface](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
+- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [Huggingface](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
 
 
 <span id='Deploy Demo System'/>
