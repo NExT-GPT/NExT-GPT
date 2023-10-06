@@ -75,7 +75,7 @@ def main(**args):
         )
     train_data, train_iter, sampler = load_dataset(args, args['dataset_name_list'])
 
-    train_num = max([_cur_dataset.__len__() for _cur_dataset in train_data.datasets.datasets]) * len(train_data.datasets)
+    train_num = max([_cur_dataset.__len__() for _cur_dataset in train_data.datasets.datasets]) * len(train_data.datasets.datasets)
     length = args['epochs'] * train_num // args['world_size'] // dschf.config[
         'train_micro_batch_size_per_gpu']
     total_steps = args['epochs'] * train_num // dschf.config['train_batch_size']
