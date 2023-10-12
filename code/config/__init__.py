@@ -24,7 +24,7 @@ def load_config(args):
     base_configuration = load_base_config()
 
     # load one model config
-    if args['mode']:
+    if args.get('mode'):
         configuration = load_model_config(args['stage'], args['mode'])
 
         # update and append the special config for base config
