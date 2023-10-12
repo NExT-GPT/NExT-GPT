@@ -66,7 +66,7 @@ class NextGPTModel(nn.Module):
         print(f'Initializing language decoder from {self.vicuna_ckpt_path} ...')
 
         self.llama_model = LlamaForCausalLM.from_pretrained(self.vicuna_ckpt_path)
-        if self.args['freeze_lm']:
+        if self.args.get('freeze_lm'):
             print("Freezing the LLaMa ...")
             for param in self.llama_model.parameters():
                 param.requires_grad = False
@@ -103,7 +103,7 @@ class NextGPTModel(nn.Module):
         self.llama_proj = nn.Linear(
             self.visual_hidden_size, self.llama_model.config.hidden_size
         )
-        if self.args['freeze_input_proj']:
+        if self.args.get('freeze_input_proj'):
             for param in self.llama_proj.parameters():
                 param.requires_grad = False
 
@@ -176,7 +176,7 @@ class NextGPTModel(nn.Module):
                 raise ValueError(
                     f'Embedding of layer {layer_idx} was requested but model only has {self.llama_model.config.num_hidden_layers} layers.')
 
-        if self.args['freeze_output_proj']:
+        if self.args.get('freeze_output_proj'):
             for name, param in self.gen_text_hidden_fcs.named_parameters():
                 param.requires_grad = False
             for name, param in self.gen_text_hidden_fcs_video.named_parameters():
