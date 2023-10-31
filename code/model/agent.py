@@ -14,7 +14,7 @@ class DeepSpeedAgent:
         self.print_model_parameters()
         self.writer = SummaryWriter(args['log_path'])
 
-        self.load_parameters(self.args['save_path'])
+        self.load_parameters(self.args['save_path'], self.args['stage'])
         
         # load config parameters of deepspeed
         ds_params = json.load(open(self.args['ds_config_path']))
@@ -142,9 +142,20 @@ class DeepSpeedAgent:
         print(f'lora params: {lora:,d} || video params: {video:,d} || audio params: {audio:,d} || image params: {image:,d}')
         print(f'linear params: {linear:,d} || imagebind params: {imagebind:,d} || llama params: {llama:,d}')
 
-    def load_parameters(self, path):
+    def load_parameters(self, path, stage=3):
         if os.path.exists(os.path.join(path, 'pytorch_model.pt')):
             print('loading parameters from {}'.format(self.args['save_path']))
             delta_ckpt = torch.load(f'{path}/pytorch_model.pt', map_location=torch.device('cuda'))
-            self.model.load_state_dict(delta_ckpt, strict=False)
+            checkpoint = OrderedDict()
+            if stage == 3:
+                for k, v in delta_ckpt.items():
+                    if 'llama_model.model.embed_tokens.weight' in k:
+                        checkpoint['llama_model.base_model.model.model.embed_tokens.weight'] = v
+                    elif 'llama_model.lm_head.weight' in k:
+                        checkpoint['llama_model.base_model.model.lm_head.weight'] = v
+                    else:
+                        checkpoint[k] = v
+            else:
+                checkpoint = delta_ckpt
+            self.model.load_state_dict(checkpoint, strict=False)
 
