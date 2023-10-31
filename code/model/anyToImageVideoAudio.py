@@ -186,8 +186,8 @@ class NextGPTModel(nn.Module):
 
     def _add_image_token(self):
         # Add an image token for loss masking (and visualization) purposes.
-        self.llama_tokenizer.add_tokens({"<Img>"})  # add special image token to tokenizer
-        self.llama_tokenizer.add_tokens({"</Img>"})  # add special image token to tokenizer
+        self.llama_tokenizer.add_tokens(["<Img>"])  # add special image token to tokenizer
+        self.llama_tokenizer.add_tokens(["</Img>"])  # add special image token to tokenizer
 
         # Add [IMG] tokens to the vocabulary.
         self.args['gen_img_token_idx'] = []
