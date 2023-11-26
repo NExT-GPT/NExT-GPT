@@ -5,7 +5,7 @@ class DatasetCatalog:
     def __init__(self):
         # the following dataset utilized for encoding-side alignment learning
         self.audiocap_enc = {
-            "target": "dataset.audiocap_datase.AudioCapDataset",
+            "target": "dataset.audiocap_dataset.AudioCapDataset",
             "params": dict(
                 data_path="../data/T-X_pair_data/audiocap/audiocap.json",
                 mm_root_path="../data/T-X_pair_data/audiocap/audios",
