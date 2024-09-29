@@ -22,7 +22,7 @@ This repository hosts the code, data and model weight of **NExT-GPT**, the first
 ## 🎉 News 
 
 - [x] [2023.09.15] 🚀🚀 Release the code of NExT-GPT in version `7b_tiva_v0`.
-- [x] [2023.09.27] 🔨🧩 Added modality-blended batch sampler .
+- [x] [2023.09.27] 🔨🧩 Added modality-blended batch sampler.
 - [x] [2023.10.01] 📢📢 Release the T2M instruction dataset.
 - [x] [2023.10.04] 👏👏 Release the checkpoint of NExT-GPT in version [7b_tiva_v0](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0) .
 - [x] [2023.10.15] 🔨🚀 Update of NExT-GPT in version [7b_tiva_v0](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0) .
