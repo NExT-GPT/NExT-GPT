@@ -145,7 +145,53 @@ Then, run the [prepare_data.py](prepare_data.py) to preprocess the dataset forma
 
 #### MosIT Data
 We provide the detailed prompts for constructing and preprocessing the MosIT dataset, kindly refer to [construction directory](IT_data/MosIT_data/construction).
-
+The data format is as follows:
+```
+[
+    {
+        "image_list": [
+            {
+                "image_name": "mosit_i_0000000_00.jpg",
+                "data_source": "mosit",
+                "caption": "A visual representation of the rule of thirds"
+            },
+            {
+                "image_name": "mosit_i_0000000_01.jpg",
+                "data_source": "mosit",
+                "caption": "An image of a flowing waterfall captured with a long exposure"
+            },
+            {
+                "image_name": "mosit_i_0000000_02.jpg",
+                "data_source": "mosit",
+                "caption": "A photo of the Sony Alpha a6000 with a compact lens attached"
+            }
+        ],
+        "video_list": [],
+        "audio_list": [],
+        "conversation": [...]
+    },
+    ...
+]
+```
+Then, run the [prepare_data.py](prepare_data.py) to preprocess the dataset format for instruction-tuning:
+```
+[
+    {
+        "image_captions": [
+            "An image of a basketball court",
+            "A diagram showcasing different basketball drills",
+            "An image of a player passing the basketball"
+        ],
+        "image_caption_embeddings": [
+            "mosit_i_0000002_00.jpg.npy",
+            "mosit_i_0000002_01.jpg.npy",
+            "mosit_i_0000002_04.jpg.npy"
+        ],
+        "conversations": [...]
+    },
+    ...
+]
+``` 
 
 ### T+X-T Data
 
