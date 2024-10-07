@@ -95,7 +95,11 @@ For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/23
 * <a href='#Run NExT-GPT System'>4. Running NExT-GPT System</a>
   * <a href='#Prepare checkpoints'>4.1. Preparing checkpoints</a>
   * <a href='#Deploy Demo System'>4.2. Deploying Demo System</a>
-
+* <a href='#Tuning your own system'>5. Tuning your own System</a>
+  * <a href='#Tuning your own dataset'>5.1. Dataset</a>
+  * <a href='#Tuning your own framework'>5.2. Model Framework</a>
+  * <a href='#Tuning script'>5.3. Fine-tuning</a>
+ 
 ****
 
 
@@ -318,19 +322,28 @@ python predict.py
 ---------
 
 
-<span id='Run your own System'/>
+<span id='Tuning your own system'/>
 
 ## 5. Running Your Own System <a href='#all_catelogue'>[Back to Top]</a>
 
+
+<span id='Tuning your own dataset'>
+
 #### 5.1. Dataset
 You can define your own dataset, please refer to the [base_dataset.py](nextgpt/dataset/base_dataset.py), and then add the dataset `catalog` in [catalog.py]([text](nextgpt/dataset/catalog.py)), including the `target` and `parameters`.
+
+
+<span id='Tuning your own framework'>
 
 #### 5.2. Model Framework
 - *Multimodal Encoder*: You can leverage your own multimodal encoder in [multimodal encoder directory](nextgpt/model/multimodal_encoder), and add corresponding code in the [builder.py](nextgpt/model/multimodal_encoder/builder.py).
 - *Multimodal Decoder*: You can add your own multimodal decoder, in  [multimodal decoder directory](nextgpt/model/multimodal_decoder), and modify the corresponding code in the [builder.py](nextgpt/model/multimodal_decoder/builder.py).
 - *Projector*: You can design your own input and output projector in [multimodal projector](nextgpt/model/multimodal_projector/builder.py).  
 
-#### 5.3. Training
+
+<span id='Tuning script'>
+
+#### 5.3. Fine-tuning
 
 You can pre-define the model, data, and training parameters in [training_utils.py](training_utils.py).
 Please refer the [finetune.sh](scripts/finetune.sh) for fine-tuning your own model.
