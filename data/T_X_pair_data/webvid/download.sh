@@ -10,4 +10,4 @@ video2dataset --url_list="results_2M_train.csv" \
         --caption_col="name" \
         --save_additional_columns='[videoid,page_idx,page_dir,duration]' \
         --enable_wandb=True \
-	--config="path/to/config.yaml" \
+	--config="config.yaml" \
