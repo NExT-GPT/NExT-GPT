@@ -145,12 +145,11 @@ Then, run the [prepare_data.py](prepare_data.py) to preprocess the dataset forma
 
 #### MosIT Data
 We provide the detailed prompts for constructing and preprocessing the MosIT dataset, kindly refer to [construction directory](IT_data/MosIT_data/construction).
-s
 
 
 ### T+X-T Data
 
-We leverage [alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca), [llava-150k](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K) and [videochat](https://huggingface.co/datasets/OpenGVLab/VideoChat2-IT) for instruction fine-tuning. 
+We also leverage [alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca), [llava-150k](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K) and [videochat](https://huggingface.co/datasets/OpenGVLab/VideoChat2-IT) for instruction fine-tuning. 
 
 
 
