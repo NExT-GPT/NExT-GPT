@@ -26,10 +26,10 @@ This repository hosts the code, data and model weight of **NExT-GPT**, the first
 - [x] [2023.10.01] 📢📢 Release the T2M instruction dataset.
 - [x] [2023.10.04] 👏👏 Release the checkpoint of NExT-GPT in version [7b_tiva_v0](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0) .
 - [x] [2023.10.15] 🔨🚀 Update of NExT-GPT in version [7b_tiva_v0](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0) .
-- [x] [2024.10.07] 👏👏 Release the data and the corresponding construction methods, please refer [DATA_README.md](data/DATA_README.md) for more details.
-
+<!-- - [x] [2024.10.01] 👏👏 Release the full version model, and data construction method. -->
 
 ## 👉 TODO 
+- [ ] Release MosIT data.
 - [ ] Updating NExT-GPT in more types&sizes of LLMs.
 - [ ] Empowering NExT-GPT with more modalities of inputs&outputs.
 - [ ] ...
@@ -106,65 +106,82 @@ For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/23
 ### 1. Code Structure 
 
 ```
-.
-|-- NExT-GPT-Lagacy       # the previous version of the model
-|-- assets
-|-- checkpoints           # save the pretraining and tuning checkpoints
-|-- data  
-|   |-- IT_data
-|   |   |-- MosIT_data
-|   |   |-- T+X-T_data    # text+[image/audio/video] to text instruction data
-|   |   `-- T-T+X_data    # synthesized text to text+[image/audio/video] instruction data
-|   |-- T_X_pair_data     # text-autio pairs data
-|   |   |-- audiocap
-|   |   |-- cc3m
-|   |   `-- webvid
-|   |-- embed 
-|   `-- prepare_data.py
-|-- figures
-|-- merge_lora_weights.py
-|-- nextgpt
-|   |-- __init__.py
-|   |-- constants.py
-|   |-- conversation.py
-|   |-- dataset
-|   |   |-- __init__.py
-|   |   |-- audio_processor.py
-|   |   |-- base_dataset.py
-|   |   |-- catalog.py
-|   |   |-- concat_dataset.py
-|   |   |-- dataset_utils.py
-|   |   `-- sampler.py
-|   |-- mm_utils.py
-|   |-- model
-|   |   |-- __init__.py
-|   |   |-- apply_delta.py
-|   |   |-- builder.py
-|   |   |-- consolidate.py
-|   |   |-- language_model
-|   |   |-- make_delta.py
-|   |   |-- multimodal_decoder
-|   |   |-- multimodal_encoder
-|   |   |-- multimodal_projector
-|   |   |-- nextgpt_arch.py
-|   |   `-- utils.py
-|   `-- utils.py
-|-- scripts
-|   |-- finetune.sh
-|   |-- pretrain_dec.sh
-|   |-- pretrain_enc.sh
-|   |-- zero2.json
-|   |-- zero3.json
-|   `-- zero3_offload.json
-|-- LICENSE.md
-|-- README.md
-|-- nextgpt_trainer.py
-|-- predict.py
-|-- preprocess_embeddings.py
-|-- requirements.txt
-|-- train.py
-|-- train_mem.py
-`-- training_utils.py
+├── figures
+├── data
+│   ├── T-X_pair_data  
+│   │   ├── audiocap                      # text-autio pairs data
+│   │   │   ├── audios                    # audio files
+│   │   │   └── audiocap.json             # the audio captions
+│   │   ├── cc3m                          # text-image paris data
+│   │   │   ├── images                    # image files
+│   │   │   └── cc3m.json                 # the image captions
+│   │   └── webvid                        # text-video pairs data
+│   │   │   ├── videos                    # video files
+│   │   │   └── webvid.json               # the video captions
+│   ├── IT_data                           # instruction data
+│   │   ├── T+X-T_data                    # text+[image/audio/video] to text instruction data
+│   │   │   ├── alpaca                    # textual instruction data
+│   │   │   ├── llava                     # visual instruction data
+│   │   ├── T-T+X                         # synthesized text to text+[image/audio/video] instruction data
+│   │   └── MosIT                         # Modality-switching Instruction Tuning instruction data
+├── code
+│   ├── config
+│   │   ├── base.yaml                     # the model configuration 
+│   │   ├── stage_1.yaml                  # enc-side alignment training configuration
+│   │   ├── stage_2.yaml                  # dec-side alignment training configuration
+│   │   └── stage_3.yaml                  # instruction-tuning configuration
+│   ├── dsconfig
+│   │   ├── stage_1.json                  # deepspeed configuration for enc-side alignment training
+│   │   ├── stage_2.json                  # deepspeed configuration for dec-side alignment training
+│   │   └── stage_3.json                  # deepspeed configuration for instruction-tuning training
+│   ├── datast
+│   │   ├── base_dataset.py
+│   │   ├── catalog.py                    # the catalog information of the dataset
+│   │   ├── cc3m_datast.py                # process and load text-image pair dataset
+│   │   ├── audiocap_datast.py            # process and load text-audio pair dataset
+│   │   ├── webvid_dataset.py             # process and load text-video pair dataset
+│   │   ├── T+X-T_instruction_dataset.py  # process and load text+x-to-text instruction dataset
+│   │   ├── T-T+X_instruction_dataset.py  # process and load text-to-text+x instruction dataset
+│   │   └── concat_dataset.py             # process and load multiple dataset
+│   ├── model                     
+│   │   ├── ImageBind                     # the code from ImageBind Model
+│   │   ├── common
+│   │   ├── anyToImageVideoAudio.py       # the main model file
+│   │   ├── agent.py
+│   │   ├── modeling_llama.py
+│   │   ├── custom_ad.py                  # the audio diffusion 
+│   │   ├── custom_sd.py                  # the image diffusion
+│   │   ├── custom_vd.py                  # the video diffusion
+│   │   ├── layers.py                     # the output projection layers
+│   │   └── ...  
+│   ├── scripts
+│   │   ├── train.sh                      # training NExT-GPT script
+│   │   └── app.sh                        # deploying demo script
+│   ├── header.py
+│   ├── process_embeddings.py             # precompute the captions embeddings
+│   ├── train.py                          # training
+│   ├── inference.py                      # inference
+│   ├── demo_app.py                       # deploy Gradio demonstration 
+│   └── ...
+├── ckpt                           
+│   ├── delta_ckpt                        # tunable NExT-GPT params
+│   │   ├── nextgpt         
+│   │   │   ├── 7b_tiva_v0                # the directory to save the log file
+│   │   │   │   ├── log                   # the logs
+│   └── ...       
+│   ├── pretrained_ckpt                   # frozen params of pretrained modules
+│   │   ├── imagebind_ckpt
+│   │   │   ├──huge                       # version
+│   │   │   │   └──imagebind_huge.pth
+│   │   ├── vicuna_ckpt
+│   │   │   ├── 7b_v0                     # version
+│   │   │   │   ├── config.json
+│   │   │   │   ├── pytorch_model-00001-of-00002.bin
+│   │   │   │   ├── tokenizer.model
+│   │   │   │   └── ...
+├── LICENCE.md
+├── README.md
+└── requirements.txt
 ```
 
 
@@ -178,8 +195,8 @@ conda env create -n nextgpt python=3.8
 
 conda activate nextgpt
 
-# CUDA 12.1
-conda install pytorch==2.1.2 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.6 -c pytorch -c nvidia
+# CUDA 11.6
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.6 -c pytorch -c nvidia
 
 git clone https://github.com/NExT-GPT/NExT-GPT.git
 cd NExT-GPT
@@ -190,6 +207,8 @@ pip install -r requirements.txt
 <span id='Training on Your Own'/>
 
 ### 3. Training/Adapting NExt-GPT on Your Own 
+
+####
 
 
 
@@ -204,8 +223,8 @@ is the unified image/video/audio encoder. The pre-trained checkpoint can be down
 - `Vicuna`:
 first prepare the LLaMA by following the instructions [[here]](ckpt/pretrained_ckpt/prepare_vicuna.md). Then put the pre-trained model at [[./ckpt/pretrained_ckpt/vicuna_ckpt/]](ckpt/pretrained_ckpt/vicuna_ckpt/). 
 - `Image Diffusion`
-is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/stabilityai/stable-diffusion-2) with version `
-v2`. (_will be automatically downloaded_)
+is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5) with version `
+v1-5`. (_will be automatically downloaded_)
 - `Audio Diffusion`
 for producing audio content. NExT-GPT employs [AudioLDM](https://github.com/haoheliu/AudioLDM) with version `l-full`. (_will be automatically downloaded_)
 - `Video Diffusion`
@@ -229,12 +248,12 @@ B) Instruction data
     - `Alpaca` of the ***textual instruction data***, download it from [here](https://github.com/tatsu-lab/stanford_alpaca), and then put it at [[./data/IT_data/T+X-T_data/alpaca/]](data/IT_data/T+X-T_data/alpaca/).
     - `VideoChat`, download the ***video instruction data*** [here](https://github.com/OpenGVLab/InternVideo/tree/main/Data/instruction_data), and then put it at [[./data/IT_data/T+X-T_data/videochat/]](data/IT_data/T+X-T_data/videochat/).
     
-    Side note：After downloading dataset, please run `prepare_data.py` to preprocess the dataset.
+    Side note：After downloading dataset, please run `preprocess_dataset.py` to preprocess the dataset into a unified format.
   - T-X+T (T2M)
     - The `T-X+T` instruction datasets (T2M) are saved at [[./data/IT_data/T-T+X_data]](./data/IT_data/T-T+X_data).
    
   - MosIT
-    - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handling the copyright issue._) 
+    - Download the file from [here](), put them in [[./data/IT_data/MosIT_data/]](./data/IT_data/MosIT_data/). (_We are in the process of finalizing the data and handling the copyright issue. Will release later._) 
 
 
 <span id='Precompute Embeddings'/>
@@ -246,7 +265,7 @@ To save costs of time and memory, we precompute the text embeddings for image, a
 Please run this command before the following training of NExT-GPT, where the produced `embedding` file will be saved at [[./data/embed]](./data/embed).
 ```angular2html
 cd ./code/
-python preprocess_embeddings.py ../data/T-X_pair_data/cc3m/cc3m_generation.json image ../data/embed/ stabilityai/stable-diffusion-2
+python process_embeddings.py ../data/T-X_pair_data/cc3m/cc3m.json image ../data/embed/ runwayml/stable-diffusion-v1-5
 ```
 
 Note of arguments:
@@ -261,32 +280,59 @@ Note of arguments:
 
 #### 3.4. Training NExT-GPT  <a href='#all_catelogue'>[Back to Top]</a>
 
-First of all, please refer to the base configuration file [[training_utils.py]](training_utils.py) for the basic system setting of overall modules, and dataset configuration [nextgpt/dataset/catalog.py](nextgpt/dataset/catalog.py).
+First of all, please refer to the base configuration file [[./code/config/base.yaml]](./code/config/base.yaml) for the basic system setting of overall modules.
+
+Then, the training of NExT-GPT starts with this script:
+```angular2html
+cd ./code
+bash scripts/train.sh
+```
+Specifying the command:
+```angular2html
+deepspeed --include localhost:0 --master_addr 127.0.0.1 --master_port 28459 train.py \
+    --model nextgpt \
+    --stage 1\
+    --save_path  ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/\
+    --log_path ../ckpt/delta_ckpt/nextgpt/7b_tiva_v0/log/
+```
+where the key arguments are:
+- `--include`: `localhost:0` indicating the GPT cuda number `0` of deepspeed.
+- `--stage`: training stage.
+- `--save_path`: the directory which saves the trained delta weights. This directory will be automatically created.
+- `--log_path`: the directory which saves the log file.
+
+
+
+
+
+
 The whole NExT-GPT training involves 3 steps:
 
 - **Step-1**: Encoding-side LLM-centric Multimodal Alignment. This stage trains the ***input projection layer*** while freezing the ImageBind, LLM, output projection layer.
-  ```angular2html
-  # Encoding-side LLM-centric Multimodal Alignment
-  bash scripts/pretrain_enc.sh
-  ```
+  
+  Just run the above `train.sh` script by setting: `--stage 1`
+  
+  Also refer to the running config file [[./code/config/stage_1.yaml]](./code/config/stage_1.yaml) and deepspeed config file [[./code/dsconfig/stage_1.yaml]](./code/dsconfig/stage_1.yaml) for more step-wise configurations.
+
+  Note that the dataset used for training in this step is included `dataset_name_list` and the dataset name must precisely match the definition in [[./code/dataset/catalog.py]](./code/dataset/catalog.py)  
 
 
 
 - **Step-2**: Decoding-side Instruction-following Alignment. This stage trains the ***output projection layers*** while freezing the ImageBind, LLM, input projection layers.
-  ```angular2html
-  # Encoding-side LLM-centric Multimodal Alignment
-  bash scripts/pretrain_enc.sh
-  ```
+
+  Just run the above `train.sh` script by setting: `--stage 2`
+
+  Also refer to the running config file [[./code/config/stage_2.yaml]](./code/config/stage_2.yaml) and deepspeed config file [[./code/dsconfig/stage_2.yaml]](./code/dsconfig/stage_2.yaml) for more step-wise configurations.
 
 
 
 
 
 - **Step-3**: Instruction Tuning. This stage instruction-tune 1) the ***LLM*** via LoRA, 2) ***input projection layer*** and 3) ***output projection layer*** on the instruction dataset.
-  ```angular2html
-  # Encoding-side LLM-centric Multimodal Alignment
-  bash scripts/pretrain_enc.sh
-  ```
+
+  Just run the above `train.sh` script by setting: `--stage 3`
+
+  Also refer to the running config file [[./code/config/stage_3.yaml]](./code/config/stage_3.yaml) and deepspeed config file [[./code/dsconfig/stage_3.yaml]](./code/dsconfig/stage_3.yaml) for more step-wise configurations.
 
 
 
@@ -304,40 +350,22 @@ The whole NExT-GPT training involves 3 steps:
 First, loading the pre-trained NExT-GPT system.
 - **Step-1**: load `Frozen parameters`. Please refer to <a href='#Prepare Pre-trained Checkpoint'>3.1 Preparing Pre-trained Checkpoint</a>.
 
-- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [./checkpoints/nextgpt-v1.5-7b](./checkpoints/nextgpt-v1.5-7b). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [Huggingface](). 
+- **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [[./ckpt/delta_ckpt/nextgpt/7b_tiva_v0]](./ckpt/delta_ckpt/nextgpt/7b_tiva_v0). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [Huggingface](https://huggingface.co/ChocoWu/nextgpt_7b_tiva_v0). 
 
 
+<span id='Deploy Demo System'/>
 
-#### 4.2. Run the Prediction
-Upon completion of the checkpoint loading, you can run the prediction via:
+
+#### 4.2. Deploying Gradio Demo
+Upon completion of the checkpoint loading, you can run the demo locally via:
 ```angular2html
-python predict.py
+cd ./code
+bash scripts/app.sh
 ```
+Specifying the key arguments as:
+- `--nextgpt_ckpt_path`: the path of pre-trained NExT-GPT params.
 
 ---------
-
-
-<span id='Run your own System'/>
-
-## 5. Running Your Own System <a href='#all_catelogue'>[Back to Top]</a>
-
-#### 5.1. Dataset
-You can define your own dataset, please refer to the [base_dataset.py](nextgpt/dataset/base_dataset.py), and then add the dataset `catalog` in [catalog.py]([text](nextgpt/dataset/catalog.py)), including the `target` and `parameters`.
-
-#### 5.2. Model Framework
-- *Multimodal Encoder*: You can leverage your own multimodal encoder in [multimodal encoder directory](nextgpt/model/multimodal_encoder), and add corresponding code in the [builder.py](nextgpt/model/multimodal_encoder/builder.py).
-- *Multimodal Decoder*: You can add your own multimodal decoder, in  [multimodal decoder directory](nextgpt/model/multimodal_decoder), and modify the corresponding code in the [builder.py](nextgpt/model/multimodal_decoder/builder.py).
-- *Projector*: You can design your own input and output projector in [multimodal projector](nextgpt/model/multimodal_projector/builder.py).  
-
-#### 5.3. Training
-
-You can pre-define the model, data, and training parameters in [training_utils.py](training_utils.py).
-Please refer the [finetune.sh](scripts/finetune.sh) for fine-tuning your own model.
-
-
-
----------
-
 
 
 ## Contact
@@ -370,11 +398,11 @@ You may refer to related work that serves as foundations for our framework and c
 [AudioLDM](https://github.com/haoheliu/AudioLDM), and
 [Zeroscope](https://huggingface.co/cerspense/zeroscope_v2_576w).
 We also partially draw inspirations from 
-[PandaGPT](https://github.com/yxuansu/PandaGPT),  
+[PandaGPT](https://github.com/yxuansu/PandaGPT), 
+[VPGTrans](https://vpgtrans.github.io/), 
 [GILL](https://github.com/kohjingyu/gill/), 
 [CoDi](https://codi-gen.github.io/),
 [Video-LLaMA](https://github.com/DAMO-NLP-SG/Video-LLaMA),
-[LLaVA](https://github.com/haotian-liu/LLaVA),
 and [MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4).
 Thanks for their wonderful works.
 
