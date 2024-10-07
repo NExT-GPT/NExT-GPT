@@ -95,7 +95,7 @@ For more technical details, kindly refer to the [paper](https://arxiv.org/pdf/23
 * <a href='#Run NExT-GPT System'>4. Running NExT-GPT System</a>
   * <a href='#Prepare checkpoints'>4.1. Preparing checkpoints</a>
   * <a href='#Deploy Demo System'>4.2. Deploying Demo System</a>
-* <a href='#Tuning your own system'>5. Tuning your own System</a>
+* <a href='#Tuning your own system'>5. Fine-tuning your own System</a>
   * <a href='#Tuning your own dataset'>5.1. Dataset</a>
   * <a href='#Tuning your own framework'>5.2. Model Framework</a>
   * <a href='#Tuning script'>5.3. Fine-tuning</a>
@@ -312,7 +312,6 @@ First, loading the pre-trained NExT-GPT system.
 - **Step-2**: load `Tunable parameters`. Please put the NExT-GPT system at [./checkpoints/nextgpt-v1.5-7b](./checkpoints/nextgpt-v1.5-7b). You may either 1) use the params trained yourselves, or 2) download our checkpoints from [Huggingface](). 
 
 
-
 #### 4.2. Run the Prediction
 Upon completion of the checkpoint loading, you can run the prediction via:
 ```angular2html
@@ -324,7 +323,7 @@ python predict.py
 
 <span id='Tuning your own system'/>
 
-## 5. Running Your Own System <a href='#all_catelogue'>[Back to Top]</a>
+## 5. Fine-tuning Your Own System <a href='#all_catelogue'>[Back to Top]</a>
 
 
 <span id='Tuning your own dataset'>
