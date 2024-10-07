@@ -16,6 +16,7 @@
 This repository hosts the code, data and model weight of **NExT-GPT**, the first end-to-end MM-LLM that perceives input and generates output in arbitrary combinations (any-to-any) of text, image, video, and audio and beyond.
 
 
+**Noted**: we wrap the former old codebase into the [NExT-GPT-Lagacy](NExT-GPT-Lagacy). Please refer to this new codebase for all training and tuning procedures.
 
 -----------
 
