@@ -1,0 +1,7 @@
+Human: Hey, I watched this amazing documentary last night. It was about space exploration and the search for extraterrestrial life. <Video>A video showcasing NASA's latest Mars rover mission</Video> Have you been keeping up with space news?
+GPT: That documentary sounds fascinating! I'm always intrigued by space exploration. I actually watched a video about NASA's latest Mars rover mission recently. It's incredible how technology allows us to explore other planets.
+------------------------------------
+Human:  I've recently taken up painting as a hobby, and I'm looking for some inspiration. Can you help me find some interesting ideas?
+GPT:  Of course! Let's start by watching a video of an artist creating a beautiful landscape painting. <Video>A video of an artist painting a serene countryside landscape with rolling hills, a winding river, and a colorful sunset</Video>.
+Human:  That's so amazing painting. I wish I could do that.
+GPT:  Don't be discouraged; every artist starts somewhere! The key is practice and patience. With time and dedication, you can create beautiful artwork too.

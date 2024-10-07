@@ -1,0 +1,112 @@
+[Example-1]
+Given a scene description (about image): A scene featuring a cityscape, a park, and heritage architecture.
+Output:
+	Human: Please create a scene of a city and park showing a heritage architecture for me.
+	GPT: Certainly, this is an image of a scene featuring a cityscape, a park, and heritage architecture.
+
+
+[Example-2]
+Given a scene description (about image): An image of a city skyline with illuminated buildings at night.
+Output:
+	Human: I love walking through the city streets at night. The city lights create such a magical ambiance. I really want to see the scene of that.
+	GPT: Yeah, nighttime cityscapes can be so enchanting, here is the image of that view. 
+
+
+[Example-3]
+Given a scene description (about video): A video showcasing night city.
+Output:
+	Human: Show me some dynamic videos of night city please.
+	GPT: Absolutely! Here I can show you the video of this night city.
+
+
+[Example-4]
+Given a scene description (about video): Deep fried tarantulas on a bowl.
+Output:
+	Human: I've heard about exotic food, but deep fried tarantulas in a bowl? I've got to see this. Can you play that video for me?
+	GPT: Definitely! Here's the video of the deep fried tarantulas in a bowl. It's quite a conversation starter, I must say.
+
+
+[Example-5]
+Given a scene description (about image): Streams and water from melting snow and ice.
+Output:
+	Human: I need a glimpse of nature's beauty – streams and water emerging from the melting snow and ice. Can you capture that in an image?
+	GPT: Nature's wonder is at your fingertips. Here's an image showcasing streams and water flowing from the melting snow and ice.
+
+
+[Example-6]
+Given a scene description(about sound): The sounds of laughter and clinking glasses at a rooftop bar.
+Output:
+	Human: I'd love to hear the sounds of laughter and clinking glasses at a rooftop bar.
+	GPT: Sure thing, here's an audio clip capturing the lively atmosphere of a rooftop bar, complete with laughter and the delightful sound of glasses clinking. Enjoy!
+
+
+[Example-7]
+Given a scene description(about sound): Someone types on a keyboard super fast, slowing down just once.
+Output:
+	Human: Can you describe the sound of someone typing on a keyboard really fast, and then slowing down just once?
+	GPT: Ok, imagine the rapid staccato of keys being hammered, like a miniature drumroll, and then suddenly, a solitary, deliberate keystroke, almost like a gentle sigh in the midst of the storm.
+
+
+[Example-8]
+Given a scene description(about sound): Birds are chirping at different times as the wind blows.
+Output:
+	Human: I could really use a mental getaway right now. How about a description of birds chirping at various intervals while the wind rustles through the trees?
+	GPT: Sure! Picture a tranquil setting where birds create a symphony with their chirps, synchronized with the gentle whispers of the wind as it dances among the leaves.
+
+
+[Example-9]
+Given a scene description(about sound): A lizard making a squeaking sound.
+Output:
+	Human: I was out hiking last weekend, and I swear I heard a lizard making this high-pitched squeak. Can you give me an idea of what that might sound like?
+	GPT: That sounds like a unique experience! Picture a tiny lizard in the wilderness, making a squeaking sound like this.
+
+
+[Example-10]
+Given a scene description (about video): Workers install metal roofing.
+Output:
+	Human: Can you show me a video of the process where workers install metal roofing?
+	GPT: Absolutely! Here's a video that demonstrates workers in the midst of installing metal roofing.
+
+
+[Example-11]
+Given a scene description (about video): A winding road through a thick forest with sun rays beaming through the trees.
+Output:
+	Human: You know what I find incredibly calming? Watching videos of forest paths with sunlight dappling through the leaves. Can you show me one?
+	GPT: I completely understand; it's a beautiful sight. Here's a video of a winding road through a dense forest, with those sun rays creating a serene atmosphere as they filter through the trees. Enjoy!
+
+
+[Example-12]
+Given a scene description (about video): Dog eating his meal from a pet bowl with appetite, shot indoors inside a house with artificial yellow tint lighting.
+Output:
+	Human: Can you show me a video of a dog enjoying its meal from a pet bowl inside a warmly lit house?
+	GPT: Here's a video of a dog happily eating from its pet bowl inside a cozy, warmly lit home.
+
+
+[Example-13]
+Given a scene description (about video): Gozo island coastline in malta, panning view from the boat on mediterranean sea.
+Output:
+	Human: I've heard the Gozo island coastline in Malta is breathtaking. Could you please show me a video of it, with a view from a boat on the Mediterranean Sea?
+	GPT: For reference, here's a captivating video that offers a sweeping view of the Gozo island coastline in Malta, as seen from a boat cruising along the mesmerizing Mediterranean Sea.
+
+
+[Example-14]
+Given a scene description (about image): A person has a prosthetic nose that she will wear until she has surgery.
+Output:
+	Human: It is quite a unique situation for a person with the prosthetic nose and the message about the surgery. Can you show me the image of that?
+	GPT: Of course, here's the image of the person with a prosthetic nose, and the message says they'll wear it until they can have surgery.
+
+
+[Example-15]
+Given a scene description (about image): Number made from 3D fruits.
+Output:
+	Human: I've heard about these artistic numbers made from fruits. Can you please share an image of one with me?
+	GPT: How about this? Feast your eyes on this captivating image of a number sculpted entirely from a colorful array of 3D fruits.
+
+
+[Example-16]
+Given a scene description (about video): Attractive woman eats fresh apple outdoor.
+Output:
+	Human: I'd love to see a video of a beautiful woman indulging in a fresh apple outdoors.
+	GPT: No problem! Here's a video that captures the essence of a lovely woman relishing a crisp apple in an outdoor setting.
+
+

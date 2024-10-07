@@ -1,0 +1,6 @@
+Human: I am looking for some ideas for a new tattoo. What do you think looks good on a petite person?
+GPT: <Image>A cute cat tatto on a person's shoulder</Image>
+Human: I want a tattoo of a sunflower, but I am not sure what style would look best on me.
+GPT: Here is a sunflower tattoo example for reference. <Image>A sunflower tattoo on the arm</Image>
+Human: That's beautiful. show me one that would work well as a complementary piece.
+GPT: <Image>A colorful sunflower tattoo with green leaves</Image>

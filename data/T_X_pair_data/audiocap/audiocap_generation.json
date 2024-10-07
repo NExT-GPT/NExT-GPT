@@ -1,0 +1,302 @@
+[
+    {
+        "output_audio": "106158.wav",
+        "audio_captions": "A train running and then a horn honking",
+        "audio_caption_embeddings": "106158.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I would like you to render a audio recording of A train running and then a horn honking"
+            },
+            {
+                "from": "gpt",
+                "value": "Here is a audio for your reference <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "107819.wav",
+        "audio_captions": "A young man speaks over gunfire and low music",
+        "audio_caption_embeddings": "107819.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "design me a soundtrack of A young man speaks over gunfire and low music"
+            },
+            {
+                "from": "gpt",
+                "value": "Definitely <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "104137.wav",
+        "audio_captions": "Running then spraying",
+        "audio_caption_embeddings": "104137.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to display a tune of Running then spraying"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "88693.wav",
+        "audio_captions": "Some clicking followed by a dog whining and a lady talking",
+        "audio_caption_embeddings": "88693.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd like you to generate a recording of Some clicking followed by a dog whining and a lady talking"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "19001.wav",
+        "audio_captions": "Birds cooing and flapping their wings",
+        "audio_caption_embeddings": "19001.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I want you to develop a recording of Birds cooing and flapping their wings"
+            },
+            {
+                "from": "gpt",
+                "value": "Ok. <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "12357.wav",
+        "audio_captions": "A man is speaking",
+        "audio_caption_embeddings": "12357.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you exhibit me a song of A man is speaking"
+            },
+            {
+                "from": "gpt",
+                "value": "how about this? <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "54597.wav",
+        "audio_captions": "Brief speech followed by tapping and clanking",
+        "audio_caption_embeddings": "54597.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you yield me a song of Brief speech followed by tapping and clanking"
+            },
+            {
+                "from": "gpt",
+                "value": "Ok. <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "107739.wav",
+        "audio_captions": "A train horn blares as a train passes, then fades",
+        "audio_caption_embeddings": "107739.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I need you to show a recording of A train horn blares as a train passes, then fades"
+            },
+            {
+                "from": "gpt",
+                "value": "Ok. <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "67715.wav",
+        "audio_captions": "A person snoring while someone briefly imitates the sound a while later",
+        "audio_caption_embeddings": "67715.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I want you to construct a tune of A person snoring while someone briefly imitates the sound a while later"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "9010.wav",
+        "audio_captions": "Traffic passes in the distance, small clicks of metal and plastic",
+        "audio_caption_embeddings": "9010.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "synthesize a music where Traffic passes in the distance, small clicks of metal and plastic"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "92584.wav",
+        "audio_captions": "A train approaches and blows a horn",
+        "audio_caption_embeddings": "92584.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I would like you to conjure a audio content of A train approaches and blows a horn"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "12739.wav",
+        "audio_captions": "People speaking with an engine starting and water splashing",
+        "audio_caption_embeddings": "12739.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "please render a sound of People speaking with an engine starting and water splashing"
+            },
+            {
+                "from": "gpt",
+                "value": "how about this? <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "6340.wav",
+        "audio_captions": "An engine loudly idling",
+        "audio_caption_embeddings": "6340.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "fashion me a sound about An engine loudly idling"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "11569.wav",
+        "audio_captions": "Some men are talking with pigeon sound in the background",
+        "audio_caption_embeddings": "11569.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you display me a tune of Some men are talking with pigeon sound in the background"
+            },
+            {
+                "from": "gpt",
+                "value": "Absolutely! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "22405.wav",
+        "audio_captions": "Bus coming to a stop and door opening",
+        "audio_caption_embeddings": "22405.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "depict audio content from Bus coming to a stop and door opening"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure, this is the audio you want. <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "46587.wav",
+        "audio_captions": "Paper is crumpling and ripping, and an adult male is speaking",
+        "audio_caption_embeddings": "46587.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "fashion a song where Paper is crumpling and ripping, and an adult male is speaking"
+            },
+            {
+                "from": "gpt",
+                "value": "of course <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "90915.wav",
+        "audio_captions": "A gun fires multiple times",
+        "audio_caption_embeddings": "90915.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "produce me a rhythm of A gun fires multiple times"
+            },
+            {
+                "from": "gpt",
+                "value": "Certainly! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "102666.wav",
+        "audio_captions": "Farm animals make noises as birds tweet and ducks quack",
+        "audio_caption_embeddings": "102666.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you produce me a soundtrack of Farm animals make noises as birds tweet and ducks quack"
+            },
+            {
+                "from": "gpt",
+                "value": "Absolutely! <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "19029.wav",
+        "audio_captions": "Wind blowing, a horse runs and people cheer",
+        "audio_caption_embeddings": "19029.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you compose me a audio clip of Wind blowing, a horse runs and people cheer"
+            },
+            {
+                "from": "gpt",
+                "value": "for reference, is this ok? <audio>"
+            }
+        ]
+    },
+    {
+        "output_audio": "68511.wav",
+        "audio_captions": "Digital beeps all the same with one different at the end",
+        "audio_caption_embeddings": "68511.wav.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "display voice from Digital beeps all the same with one different at the end"
+            },
+            {
+                "from": "gpt",
+                "value": "for reference, is this ok? <audio>"
+            }
+        ]
+    }
+]

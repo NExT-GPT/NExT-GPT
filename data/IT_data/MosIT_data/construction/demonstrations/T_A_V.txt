@@ -1,0 +1,11 @@
+Human: I really enjoy symphonies, especially Beethoven's Symphony of Destiny. <Audio>A piece of Beethoven's Symphony of Destiny</Audio>. Tell me what you feel like in this music?
+GPT: The sweeping melodies and dramatic crescendos evoke a sense of triumph and grandeur. The music seems to convey a feeling of overcoming challenges and embracing the unknown, like embarking on an epic journey.
+Human: Share me an image of Beethoven.
+GPT: <Image>A portrait of Beethoven</Image>
+Human: How a great man produced so many masterpiece. Let's enjoy the music. <Audio>A piece of symphonies</Audio>
+GPT:  Listening to Beethoven's Symphony is truly a powerful experience.
+------------------------------------
+Human:What is unusual i this picture? <Image>A pig flies on the sky</Image>
+GPT:Well, the most unusual thing in the picture is definitely the flying pig! Pigs are not known for their ability to soar through the skies, so that's quite an unexpected and whimsical element in the image.
+Human: That's ture. There should be a funny humming sound of a little pig for this scene.
+GPT: Absolutely, adding a funny humming sound of a little pig in the scene would make it even more comical and entertaining. Just imagine the laughter it would bring! <Audio>Humming sound of a pig trying to fly, creating a hilarious atmosphere.</Audio>

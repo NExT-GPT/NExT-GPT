@@ -1,0 +1,262 @@
+[
+    {
+        "input_audio": "106158.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nCould you encapsulate the essence of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "A train running and then a horn honking"
+            }
+        ]
+    },
+    {
+        "input_audio": "107819.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the main idea of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "A young man speaks over gunfire and low music"
+            }
+        ]
+    },
+    {
+        "input_audio": "104137.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nGive me an essence of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "Running then spraying"
+            }
+        ]
+    },
+    {
+        "input_audio": "88693.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat's the audio really about?"
+            },
+            {
+                "from": "gpt",
+                "value": "Some clicking followed by a dog whining and a lady talking"
+            }
+        ]
+    },
+    {
+        "input_audio": "19001.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat's the central idea behind the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "Birds cooing and flapping their wings"
+            }
+        ]
+    },
+    {
+        "input_audio": "12357.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nI'm curious about the essence of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "A man is speaking"
+            }
+        ]
+    },
+    {
+        "input_audio": "54597.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nI'm curious about the essence of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "Brief speech followed by tapping and clanking"
+            }
+        ]
+    },
+    {
+        "input_audio": "107739.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nGive me a short summary of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "A train horn blares as a train passes, then fades"
+            }
+        ]
+    },
+    {
+        "input_audio": "67715.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nGive me a short description of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "A person snoring while someone briefly imitates the sound a while later"
+            }
+        ]
+    },
+    {
+        "input_audio": "9010.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat are the key elements of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "Traffic passes in the distance, small clicks of metal and plastic"
+            }
+        ]
+    },
+    {
+        "input_audio": "92584.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the main point of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "A train approaches and blows a horn"
+            }
+        ]
+    },
+    {
+        "input_audio": "12739.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nI'd like to know more about the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "People speaking with an engine starting and water splashing"
+            }
+        ]
+    },
+    {
+        "input_audio": "6340.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the audio saying?"
+            },
+            {
+                "from": "gpt",
+                "value": "An engine loudly idling"
+            }
+        ]
+    },
+    {
+        "input_audio": "11569.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nTell me the key points of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "Some men are talking with pigeon sound in the background"
+            }
+        ]
+    },
+    {
+        "input_audio": "22405.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the main point of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "Bus coming to a stop and door opening"
+            }
+        ]
+    },
+    {
+        "input_audio": "46587.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nGive me a short description of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "Paper is crumpling and ripping, and an adult male is speaking"
+            }
+        ]
+    },
+    {
+        "input_audio": "90915.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nProvide an overview of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "A gun fires multiple times"
+            }
+        ]
+    },
+    {
+        "input_audio": "102666.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nGive me a brief description of the audio."
+            },
+            {
+                "from": "gpt",
+                "value": "Farm animals make noises as birds tweet and ducks quack"
+            }
+        ]
+    },
+    {
+        "input_audio": "19029.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the main point of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "Wind blowing, a horse runs and people cheer"
+            }
+        ]
+    },
+    {
+        "input_audio": "68511.wav",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<audio>\nWhat is the main idea of the audio?"
+            },
+            {
+                "from": "gpt",
+                "value": "Digital beeps all the same with one different at the end"
+            }
+        ]
+    }
+]

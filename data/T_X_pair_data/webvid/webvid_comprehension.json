@@ -1,0 +1,262 @@
+[
+    {
+        "input_video": "00169473.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the video trying to convey?"
+            },
+            {
+                "from": "gpt",
+                "value": "Roses on the garden in the afternoon"
+            }
+        ]
+    },
+    {
+        "input_video": "00123086.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nGive me a brief summary of the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Top-down aerial footage of a green field, ready to beharvested - green and organic farming"
+            }
+        ]
+    },
+    {
+        "input_video": "00077761.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nTell me about the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Clear fresh water flowing over stones in a waterfall (full hd)\r\n"
+            }
+        ]
+    },
+    {
+        "input_video": "00138086.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat's the central idea behind the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "Aerial view of the ancient city of sille"
+            }
+        ]
+    },
+    {
+        "input_video": "00007033.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the video trying to say?"
+            },
+            {
+                "from": "gpt",
+                "value": "Soft white cheese with bright toast and olives 1920x1080 intro motion slow hidef hd"
+            }
+        ]
+    },
+    {
+        "input_video": "00225661.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the main idea of the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "Booth bay, me - circa 2005: placing lobsters in holding bins, pulling up lobster traps, baiting traps."
+            }
+        ]
+    },
+    {
+        "input_video": "00200104.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nCould you distill the video into a few sentences?"
+            },
+            {
+                "from": "gpt",
+                "value": "A doctor puts an infusion system into action in close-up on the black background. slow motion of isolated medicine bottle with liquid drug illuminated by emergency flashing lights. healthcare concept."
+            }
+        ]
+    },
+    {
+        "input_video": "00007343.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nGive me an essence of the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Gweebarra bay by lettermacaward in county donegal - ireland."
+            }
+        ]
+    },
+    {
+        "input_video": "00192832.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "Baby boy looking through a dirty window glass\r\n"
+            }
+        ]
+    },
+    {
+        "input_video": "00119198.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat can you see from the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "A flock of colored fish swims in the depths."
+            }
+        ]
+    },
+    {
+        "input_video": "00070041.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat are the key elements of the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "Circa 1950s - considering everyone is different, you need to set your own standards and know yourself."
+            }
+        ]
+    },
+    {
+        "input_video": "00025574.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nGive me an essence of the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Guanaco grazing on hill in torres del paine patagonia"
+            }
+        ]
+    },
+    {
+        "input_video": "00020285.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the video saying?"
+            },
+            {
+                "from": "gpt",
+                "value": "Automatic packaging at the enterprise, automated line at the flower growing factory"
+            }
+        ]
+    },
+    {
+        "input_video": "00038543.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nSummarize the video."
+            },
+            {
+                "from": "gpt",
+                "value": "\nfrankfurt am main city center aerial view shot with drone. 17.12.2019 frankfurt am main germany."
+            }
+        ]
+    },
+    {
+        "input_video": "00015369.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nGive me an essence of the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Cooking on the fire, fishing for pike."
+            }
+        ]
+    },
+    {
+        "input_video": "00226455.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat can you see from the video?"
+            },
+            {
+                "from": "gpt",
+                "value": "3d floating pad lock and hexagon shape with random digit number in the dark background for network security concept with dark and grain processed"
+            }
+        ]
+    },
+    {
+        "input_video": "00136461.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nGenerate a caption about video."
+            },
+            {
+                "from": "gpt",
+                "value": "Funny cat sitting next to a huge bowl of meat"
+            }
+        ]
+    },
+    {
+        "input_video": "00213646.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nWhat is the video saying?"
+            },
+            {
+                "from": "gpt",
+                "value": "Single picture frame with green screen "
+            }
+        ]
+    },
+    {
+        "input_video": "00048255.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nTell me the key points of the video."
+            },
+            {
+                "from": "gpt",
+                "value": "Lab assistant holding meat sample in forceps, product quality analysis, export"
+            }
+        ]
+    },
+    {
+        "input_video": "00007488.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nCould you distill the video into a few sentences?"
+            },
+            {
+                "from": "gpt",
+                "value": "Tooth"
+            }
+        ]
+    }
+]

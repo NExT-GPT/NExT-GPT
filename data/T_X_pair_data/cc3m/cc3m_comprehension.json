@@ -1,0 +1,262 @@
+[
+    {
+        "input_image": "001312382.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat's the image really about?"
+            },
+            {
+                "from": "gpt",
+                "value": "cricket player was named award category and runner - up behind person"
+            }
+        ]
+    },
+    {
+        "input_image": "001319946.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat can you see from the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "players wait for a conversion"
+            }
+        ]
+    },
+    {
+        "input_image": "001315729.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat is the image trying to convey?"
+            },
+            {
+                "from": "gpt",
+                "value": "rugby player during the match ."
+            }
+        ]
+    },
+    {
+        "input_image": "001314004.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me a summary of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "windows on an old wooden country house ."
+            }
+        ]
+    },
+    {
+        "input_image": "001314761.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGenerate a caption about image."
+            },
+            {
+                "from": "gpt",
+                "value": "black dog in front of a plain white background"
+            }
+        ]
+    },
+    {
+        "input_image": "001310451.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat are the key elements of the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "ski area -- weather to ski -- today"
+            }
+        ]
+    },
+    {
+        "input_image": "001314980.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me a short description of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "vector silhouette of a man who is watching tv ."
+            }
+        ]
+    },
+    {
+        "input_image": "001318412.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nCould you encapsulate the essence of the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "students reading in the school library"
+            }
+        ]
+    },
+    {
+        "input_image": "001313173.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me a short description of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "if simple and sleek is the look you 're going after , search no further ."
+            }
+        ]
+    },
+    {
+        "input_image": "001319543.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nProvide an overview of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "exploring an abandoned building , came across a room full of neatly - organized bottles of urine"
+            }
+        ]
+    },
+    {
+        "input_image": "001316123.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nCould you distill the image into a few sentences?"
+            },
+            {
+                "from": "gpt",
+                "value": "man using tablet at the bar high quality 4k format"
+            }
+        ]
+    },
+    {
+        "input_image": "001316178.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me a summary of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "detail of a young woman applying eye shadow"
+            }
+        ]
+    },
+    {
+        "input_image": "001314735.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nDescribe the core message of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "organisation sector ; i like this one because of the bedrooms being together and the wraparound porch on side ."
+            }
+        ]
+    },
+    {
+        "input_image": "001312390.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat's the central idea behind the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "part of the series by visual artist , painter"
+            }
+        ]
+    },
+    {
+        "input_image": "001312831.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat is the image trying to say?"
+            },
+            {
+                "from": "gpt",
+                "value": "rock formation on the island of island"
+            }
+        ]
+    },
+    {
+        "input_image": "001319068.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me an essence of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "christmas cookies on plate and toy truck with a glass of milk on wooden table during christmas time 4k"
+            }
+        ]
+    },
+    {
+        "input_image": "001312483.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat's the primary focus of the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "circa downtown during the day with traffic flowing past"
+            }
+        ]
+    },
+    {
+        "input_image": "001315438.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nWhat is the main point of the image?"
+            },
+            {
+                "from": "gpt",
+                "value": "a broken blue wooden bench overgrown with grass near a gray fence"
+            }
+        ]
+    },
+    {
+        "input_image": "001313716.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nGive me a short summary of the image."
+            },
+            {
+                "from": "gpt",
+                "value": "famous redwood trees can be found ."
+            }
+        ]
+    },
+    {
+        "input_image": "001314566.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\nI'd like to know more about the image."
+            },
+            {
+                "from": "gpt",
+                "value": "the huddle before their game against american football team ."
+            }
+        ]
+    }
+]

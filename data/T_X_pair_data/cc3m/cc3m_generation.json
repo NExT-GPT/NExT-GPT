@@ -1,0 +1,302 @@
+[
+    {
+        "output_image": "001312382.jpg",
+        "image_captions": "cricket player was named award category and runner - up behind person",
+        "image_caption_embeddings": "001312382.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you illustrate me a scene of cricket player was named award category and runner - up behind person"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001319946.jpg",
+        "image_captions": "players wait for a conversion",
+        "image_caption_embeddings": "001319946.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "illustrate a vision where players wait for a conversion"
+            },
+            {
+                "from": "gpt",
+                "value": "how about this? <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001315729.jpg",
+        "image_captions": "rugby player during the match .",
+        "image_caption_embeddings": "001315729.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd like you to produce a painting of rugby player during the match ."
+            },
+            {
+                "from": "gpt",
+                "value": "Sure. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001314004.jpg",
+        "image_captions": "windows on an old wooden country house .",
+        "image_caption_embeddings": "001314004.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to mold a drawing of windows on an old wooden country house ."
+            },
+            {
+                "from": "gpt",
+                "value": "this is what you look for. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001314761.jpg",
+        "image_captions": "black dog in front of a plain white background",
+        "image_caption_embeddings": "001314761.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "mold image from black dog in front of a plain white background"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001310451.jpg",
+        "image_captions": "ski area -- weather to ski -- today",
+        "image_caption_embeddings": "001310451.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you generate me a painting of ski area -- weather to ski -- today"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure, this is the image you want. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001314980.jpg",
+        "image_captions": "vector silhouette of a man who is watching tv .",
+        "image_caption_embeddings": "001314980.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you craft me a illustration of vector silhouette of a man who is watching tv ."
+            },
+            {
+                "from": "gpt",
+                "value": "Certainly! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001318412.jpg",
+        "image_captions": "students reading in the school library",
+        "image_caption_embeddings": "001318412.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I need you to exhibit a scene of students reading in the school library"
+            },
+            {
+                "from": "gpt",
+                "value": "Certainly! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001313173.jpg",
+        "image_captions": "if simple and sleek is the look you 're going after , search no further .",
+        "image_caption_embeddings": "001313173.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to show a photo of if simple and sleek is the look you 're going after , search no further ."
+            },
+            {
+                "from": "gpt",
+                "value": "Here is a image for your reference <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001319543.jpg",
+        "image_captions": "exploring an abandoned building , came across a room full of neatly - organized bottles of urine",
+        "image_caption_embeddings": "001319543.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to visualize a picture of exploring an abandoned building , came across a room full of neatly - organized bottles of urine"
+            },
+            {
+                "from": "gpt",
+                "value": "No problem. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001316123.jpg",
+        "image_captions": "man using tablet at the bar high quality 4k format",
+        "image_caption_embeddings": "001316123.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd like you to mold a snapshot of man using tablet at the bar high quality 4k format"
+            },
+            {
+                "from": "gpt",
+                "value": "this is what you look for. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001316178.jpg",
+        "image_captions": "detail of a young woman applying eye shadow",
+        "image_caption_embeddings": "001316178.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "visualize snapshot from detail of a young woman applying eye shadow"
+            },
+            {
+                "from": "gpt",
+                "value": "No problem. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001314735.jpg",
+        "image_captions": "organisation sector ; i like this one because of the bedrooms being together and the wraparound porch on side .",
+        "image_caption_embeddings": "001314735.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "generate a snapshot where organisation sector ; i like this one because of the bedrooms being together and the wraparound porch on side ."
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001312390.jpg",
+        "image_captions": "part of the series by visual artist , painter",
+        "image_caption_embeddings": "001312390.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "make drawing from part of the series by visual artist , painter"
+            },
+            {
+                "from": "gpt",
+                "value": "i would like to help. <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001312831.jpg",
+        "image_captions": "rock formation on the island of island",
+        "image_caption_embeddings": "001312831.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to conjure a image of rock formation on the island of island"
+            },
+            {
+                "from": "gpt",
+                "value": "Of course! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001319068.jpg",
+        "image_captions": "christmas cookies on plate and toy truck with a glass of milk on wooden table during christmas time 4k",
+        "image_caption_embeddings": "001319068.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to compose a image of christmas cookies on plate and toy truck with a glass of milk on wooden table during christmas time 4k"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001312483.jpg",
+        "image_captions": "circa downtown during the day with traffic flowing past",
+        "image_caption_embeddings": "001312483.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you show me a painting of circa downtown during the day with traffic flowing past"
+            },
+            {
+                "from": "gpt",
+                "value": "for reference, is this ok? <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001315438.jpg",
+        "image_captions": "a broken blue wooden bench overgrown with grass near a gray fence",
+        "image_caption_embeddings": "001315438.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "please conjure a photograph of a broken blue wooden bench overgrown with grass near a gray fence"
+            },
+            {
+                "from": "gpt",
+                "value": "of course <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001313716.jpg",
+        "image_captions": "famous redwood trees can be found .",
+        "image_caption_embeddings": "001313716.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you mold me a image of famous redwood trees can be found ."
+            },
+            {
+                "from": "gpt",
+                "value": "Of course! <image>"
+            }
+        ]
+    },
+    {
+        "output_image": "001314566.jpg",
+        "image_captions": "the huddle before their game against american football team .",
+        "image_caption_embeddings": "001314566.jpg.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I want you to build a illustration of the huddle before their game against american football team ."
+            },
+            {
+                "from": "gpt",
+                "value": "this is what you look for. <image>"
+            }
+        ]
+    }
+]

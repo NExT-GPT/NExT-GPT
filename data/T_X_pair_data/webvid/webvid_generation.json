@@ -1,0 +1,302 @@
+[
+    {
+        "output_video": "00169473.mp4",
+        "video_captions": "Roses on the garden in the afternoon",
+        "video_caption_embeddings": "00169473.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I want you to display a cinematic work of Roses on the garden in the afternoon"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00123086.mp4",
+        "video_captions": "Top-down aerial footage of a green field, ready to beharvested - green and organic farming",
+        "video_caption_embeddings": "00123086.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "create me a cinematic work of Top-down aerial footage of a green field, ready to beharvested - green and organic farming"
+            },
+            {
+                "from": "gpt",
+                "value": "Of course! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00077761.mp4",
+        "video_captions": "Clear fresh water flowing over stones in a waterfall (full hd)\r\n",
+        "video_caption_embeddings": "00077761.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you fabricate me a clip of Clear fresh water flowing over stones in a waterfall (full hd)\r\n"
+            },
+            {
+                "from": "gpt",
+                "value": "Of course! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00138086.mp4",
+        "video_captions": "Aerial view of the ancient city of sille",
+        "video_caption_embeddings": "00138086.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I would like you to fashion a movie of Aerial view of the ancient city of sille"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00007033.mp4",
+        "video_captions": "Soft white cheese with bright toast and olives 1920x1080 intro motion slow hidef hd",
+        "video_caption_embeddings": "00007033.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to demonstrate a movie of Soft white cheese with bright toast and olives 1920x1080 intro motion slow hidef hd"
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00225661.mp4",
+        "video_captions": "Booth bay, me - circa 2005: placing lobsters in holding bins, pulling up lobster traps, baiting traps.",
+        "video_caption_embeddings": "00225661.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd like to create a clip of Booth bay, me - circa 2005: placing lobsters in holding bins, pulling up lobster traps, baiting traps."
+            },
+            {
+                "from": "gpt",
+                "value": "this is what you want. <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00200104.mp4",
+        "video_captions": "A doctor puts an infusion system into action in close-up on the black background. slow motion of isolated medicine bottle with liquid drug illuminated by emergency flashing lights. healthcare concept.",
+        "video_caption_embeddings": "00200104.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd love to yield a video recording of A doctor puts an infusion system into action in close-up on the black background. slow motion of isolated medicine bottle with liquid drug illuminated by emergency flashing lights. healthcare concept."
+            },
+            {
+                "from": "gpt",
+                "value": "Sure thing! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00007343.mp4",
+        "video_captions": "Gweebarra bay by lettermacaward in county donegal - ireland.",
+        "video_caption_embeddings": "00007343.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I need you to craft a visual content of Gweebarra bay by lettermacaward in county donegal - ireland."
+            },
+            {
+                "from": "gpt",
+                "value": "Absolutely! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00192832.mp4",
+        "video_captions": "Baby boy looking through a dirty window glass\r\n",
+        "video_caption_embeddings": "00192832.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I would like you to depict a motion picture of Baby boy looking through a dirty window glass\r\n"
+            },
+            {
+                "from": "gpt",
+                "value": "Absolutely! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00119198.mp4",
+        "video_captions": "A flock of colored fish swims in the depths.",
+        "video_caption_embeddings": "00119198.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "please forge a film of A flock of colored fish swims in the depths."
+            },
+            {
+                "from": "gpt",
+                "value": "of course <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00070041.mp4",
+        "video_captions": "Circa 1950s - considering everyone is different, you need to set your own standards and know yourself.",
+        "video_caption_embeddings": "00070041.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "illustrate me a footage about Circa 1950s - considering everyone is different, you need to set your own standards and know yourself."
+            },
+            {
+                "from": "gpt",
+                "value": "Definitely <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00025574.mp4",
+        "video_captions": "Guanaco grazing on hill in torres del paine patagonia",
+        "video_caption_embeddings": "00025574.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Can you manufacture me a clip of Guanaco grazing on hill in torres del paine patagonia"
+            },
+            {
+                "from": "gpt",
+                "value": "Here is a video for your reference <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00020285.mp4",
+        "video_captions": "Automatic packaging at the enterprise, automated line at the flower growing factory",
+        "video_caption_embeddings": "00020285.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "forge me a cinematic work of Automatic packaging at the enterprise, automated line at the flower growing factory"
+            },
+            {
+                "from": "gpt",
+                "value": "Ok. <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00038543.mp4",
+        "video_captions": "\nfrankfurt am main city center aerial view shot with drone. 17.12.2019 frankfurt am main germany.",
+        "video_caption_embeddings": "00038543.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "form video clip from \nfrankfurt am main city center aerial view shot with drone. 17.12.2019 frankfurt am main germany."
+            },
+            {
+                "from": "gpt",
+                "value": "Definitely <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00015369.mp4",
+        "video_captions": "Cooking on the fire, fishing for pike.",
+        "video_caption_embeddings": "00015369.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "I'd like to construct a video clip of Cooking on the fire, fishing for pike."
+            },
+            {
+                "from": "gpt",
+                "value": "Certainly! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00226455.mp4",
+        "video_captions": "3d floating pad lock and hexagon shape with random digit number in the dark background for network security concept with dark and grain processed",
+        "video_caption_embeddings": "00226455.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "visualize film from 3d floating pad lock and hexagon shape with random digit number in the dark background for network security concept with dark and grain processed"
+            },
+            {
+                "from": "gpt",
+                "value": "Certainly! <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00136461.mp4",
+        "video_captions": "Funny cat sitting next to a huge bowl of meat",
+        "video_caption_embeddings": "00136461.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "render me a video recording about Funny cat sitting next to a huge bowl of meat"
+            },
+            {
+                "from": "gpt",
+                "value": "for reference, is this ok? <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00213646.mp4",
+        "video_captions": "Single picture frame with green screen ",
+        "video_caption_embeddings": "00213646.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you form me a motion picture of Single picture frame with green screen "
+            },
+            {
+                "from": "gpt",
+                "value": "this is what you look for. <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00048255.mp4",
+        "video_captions": "Lab assistant holding meat sample in forceps, product quality analysis, export",
+        "video_caption_embeddings": "00048255.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "make me a video clip of Lab assistant holding meat sample in forceps, product quality analysis, export"
+            },
+            {
+                "from": "gpt",
+                "value": "Here is a video for your reference <video>"
+            }
+        ]
+    },
+    {
+        "output_video": "00007488.mp4",
+        "video_captions": "Tooth",
+        "video_caption_embeddings": "00007488.mp4.npy",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "Could you present me a video of Tooth"
+            },
+            {
+                "from": "gpt",
+                "value": "Ok. <video>"
+            }
+        ]
+    }
+]
