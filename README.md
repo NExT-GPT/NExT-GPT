@@ -205,9 +205,9 @@ NExT-GPT is trained based on following excellent existing models.
 Please follow the instructions to prepare the checkpoints.
 
 - `ImageBind`
-is the unified image/video/audio encoder. The pre-trained checkpoint can be downloaded from [here](https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth) with version `huge`. Afterward, put the `imagebind_huge.pth` file at [[./ckpt/pretrained_ckpt/imagebind_ckpt/huge]](ckpt/pretrained_ckpt/imagebind_ckpt/). 
+is the unified image/video/audio encoder. The pre-trained checkpoint can be downloaded from [here](https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth) with version `huge`. Afterward, put the `imagebind_huge.pth` file at [[.pretrain_ckpt/imagebind]](./pretrain_ckpt/imagebind). 
 - `Vicuna`:
-first prepare the LLaMA by following the instructions [[here]](ckpt/pretrained_ckpt/prepare_vicuna.md). Then put the pre-trained model at [[./ckpt/pretrained_ckpt/vicuna_ckpt/]](ckpt/pretrained_ckpt/vicuna_ckpt/). 
+prepare the pretrained vicuna from [[here]](https://huggingface.co/lmsys/vicuna-7b-v1.5). Then put the pre-trained model at [[./pretrain_ckpt/vicuna-7b-v1.5/]](./pretrain_ckpt/vicuna-7b-v1.5). 
 - `Image Diffusion`
 is used to generate images. NExT-GPT uses [Stable Diffusion](https://huggingface.co/stabilityai/stable-diffusion-2) with version `
 v2`. (_will be automatically downloaded_)
