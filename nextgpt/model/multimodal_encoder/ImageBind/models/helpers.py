@@ -120,7 +120,8 @@ class SelectElement(nn.Module):
 
     def forward(self, x):
         assert x.ndim >= 3
-        return x[:, self.index, ...]
+        # return x[:, self.index, ...]
+        return x[..., self.index+1:, ...]
 
 
 class SelectEOSAndProject(nn.Module):

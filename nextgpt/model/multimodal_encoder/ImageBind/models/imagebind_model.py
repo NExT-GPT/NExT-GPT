@@ -457,6 +457,7 @@ class ImageBindModel(nn.Module):
             reduce_list = (
                 modality_value.ndim >= 5
             )  # Audio and Video inputs consist of multiple clips
+            B = modality_value.shape[0]
             if reduce_list:
                 B, S = modality_value.shape[:2]
                 modality_value = modality_value.reshape(
@@ -483,10 +484,11 @@ class ImageBindModel(nn.Module):
                     modality_value = self.modality_postprocessors[modality_key](
                         modality_value
                     )
+                dim = modality_value.shape[-1]
                 if reduce_list:
                     modality_value = modality_value.reshape(B, S, -1)
                     modality_value = modality_value.mean(dim=1)
-
+                modality_value = modality_value.reshape(B, -1, dim)
                 outputs[modality_key] = modality_value
 
         return outputs

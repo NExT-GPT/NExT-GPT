@@ -27,7 +27,7 @@ deepspeed  --include localhost:0 --master_addr 127.0.0.1 --master_port 28460 tra
     --group_by_modality_length False \
     --group_by_modality_type False \
     --tune_mm_input_adapter True \
-    --mm_input_projector_type mlp \
+    --mm_input_projector_type group \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --mm_use_vid_start_end False \

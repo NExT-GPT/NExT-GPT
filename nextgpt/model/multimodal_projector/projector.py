@@ -135,21 +135,15 @@ class GroupProjector(nn.Module):
         self.norm = norm_layer(num_features)
         self.out_fc = nn.Linear(num_features, out_features)
 
-    def forward(self, x, input_embs, return_attn=False):
-        x = x + input_embs
+    def forward(self, x, return_attn=False):
         x = self.in_fc(x)
-        # print('x: ', x.shape)
         group_token = None
         attn_dict_list = []
         for layer in self.layers:
             x, group_token, attn_dict = layer(x, group_token, return_attn=return_attn)
-            # print('x: ', x.shape)
-            # print('group_token: ', group_token.shape if group_token is not None else None)
-            # print('attn_dict: ', attn_dict)
             attn_dict_list.append(attn_dict)
         x = self.norm(x)
         x = self.out_fc(x)
-        # print('x: ', x.shape)
         return x
     
     @property
