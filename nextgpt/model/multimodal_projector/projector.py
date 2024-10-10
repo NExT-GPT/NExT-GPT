@@ -7,7 +7,7 @@
 import torch 
 import torch.nn as nn
 from .qformer import BertLMHeadModel, BertConfig
-from .group_vit import GroupingBlock, GroupingLayer, MixerMlp
+from .group import GroupingBlock, GroupingLayer, MixerMlp
 
 
 class MLP(nn.Module):
@@ -149,6 +149,14 @@ class GroupProjector(nn.Module):
     @property
     def config(self):
         return {"mm_projector_type": "group_projector"}
+        
+    @property
+    def device(self):
+        return self.in_fc.weight.device
+    
+    @property
+    def dtype(self):
+        return self.in_fc.weight.dtype
 
 
 class QFormer(nn.Module):

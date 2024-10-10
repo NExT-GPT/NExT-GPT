@@ -106,3 +106,5 @@ if __name__ == "__main__":
 
     predictor = ImageBindTower(model_name_or_path, None, delay_load=False)
     processor = predictor.video_processor
+    res = processor(input_video, return_tensors="pt")['pixel_values']
+    res = predictor(res, modality='video')
