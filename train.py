@@ -400,17 +400,6 @@ def train(attn_implementation=None):
         data_args.is_multimodal = True
 
         model.config.tokenizer_model_max_length = tokenizer.model_max_length
-
-        model.config.tune_mm_input_adapter = training_args.tune_mm_input_adapter = model_args.tune_mm_input_adapter
-        if model_args.tune_mm_input_adapter:
-            model.requires_grad_(False)
-            for p in model.get_model().mm_input_projector.parameters():
-                p.requires_grad = True
-
-        model.config.freeze_mm_input_adapter = training_args.freeze_mm_input_adapter
-        if training_args.freeze_mm_input_adapter:
-            for p in model.get_model().mm_input_projector.parameters():
-                p.requires_grad = False
         
         model.config.mm_use_img_start_end = data_args.mm_use_img_start_end = model_args.mm_use_img_start_end
         model.config.mm_input_projector_lr = training_args.mm_input_projector_lr
@@ -450,47 +439,67 @@ def train(attn_implementation=None):
         audio_decoder = model.get_audio_decoder()
         audio_decoder.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
 
-        model.config.tune_mm_output_img_adapter = training_args.tune_mm_output_img_adapter = model_args.tune_mm_output_img_adapter
-        if model_args.tune_mm_output_img_adapter:
-            # model.requires_grad_(False)
-            for p in model.get_model().mm_output_img_projector.parameters():
-                p.requires_grad = True
-        model.config.freeze_mm_output_img_adapter = training_args.freeze_mm_output_img_adapter
-        if training_args.freeze_mm_output_img_adapter:
-            for p in model.get_model().mm_output_img_projector.parameters():
-                p.requires_grad = False
         model.get_model().mm_output_img_projector.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
-        
-        model.config.tune_mm_output_vid_adapter = training_args.tune_mm_output_vid_adapter = model_args.tune_mm_output_vid_adapter
-        if model_args.tune_mm_output_vid_adapter:
-            # model.requires_grad_(False)
-            for p in model.get_model().mm_output_vid_projector.parameters():
-                p.requires_grad = True
-        model.config.freeze_mm_output_vid_adapter = training_args.freeze_mm_output_vid_adapter
-        if training_args.freeze_mm_output_vid_adapter:
-            for p in model.get_model().mm_output_vid_projector.parameters():
-                p.requires_grad = False
         model.get_model().mm_output_vid_projector.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
-        
-        model.config.tune_mm_output_aud_adapter = training_args.tune_mm_output_aud_adapter = model_args.tune_mm_output_aud_adapter
-        if model_args.tune_mm_output_aud_adapter:
-            # model.requires_grad_(False)
-            for p in model.get_model().mm_output_aud_projector.parameters():
-                p.requires_grad = True
-        model.config.freeze_mm_output_aud_adapter = training_args.freeze_mm_output_aud_adapter
-        if training_args.freeze_mm_output_aud_adapter:
-            for p in model.get_model().mm_output_aud_projector.parameters():
-                p.requires_grad = False
-        
-        # for n, p in model.get_model().mm_output_aud_projector.named_parameters():
-        #     print(n, ': ', p.requires_grad)
-        # for n, p in model.get_model().mm_output_vid_projector.named_parameters():
-        #     print(n, ': ', p.requires_grad)
-        # for n, p in model.get_model().mm_output_img_projector.named_parameters():
-        #     print(n, ': ', p.requires_grad)
-        
         model.get_model().mm_output_aud_projector.to(dtype=torch.bfloat16 if training_args.bf16 else torch.float16, device=training_args.device)
+    
+    model.requires_grad_(False)
 
+    # freeze/unfreeze the mm input adapters   
+    model.config.tune_mm_input_adapter = training_args.tune_mm_input_adapter = model_args.tune_mm_input_adapter
+    if model_args.tune_mm_input_adapter:
+        for p in model.get_model().mm_input_projector.parameters():
+            p.requires_grad = True
+    model.config.freeze_mm_input_adapter = training_args.freeze_mm_input_adapter
+    if training_args.freeze_mm_input_adapter:
+        for p in model.get_model().mm_input_projector.parameters():
+            p.requires_grad = False
+
+    # freeze/unfreeze the mm output image adapters
+    model.config.tune_mm_output_img_adapter = training_args.tune_mm_output_img_adapter = model_args.tune_mm_output_img_adapter
+    if model_args.tune_mm_output_img_adapter:
+        # model.requires_grad_(False)
+        for p in model.get_model().mm_output_img_projector.parameters():
+            p.requires_grad = True
+    model.config.freeze_mm_output_img_adapter = training_args.freeze_mm_output_img_adapter
+    if training_args.freeze_mm_output_img_adapter:
+        for p in model.get_model().mm_output_img_projector.parameters():
+            p.requires_grad = False
+
+    # freeze/unfreeze the mm output video adapters
+    model.config.tune_mm_output_vid_adapter = training_args.tune_mm_output_vid_adapter = model_args.tune_mm_output_vid_adapter
+    if model_args.tune_mm_output_vid_adapter:
+        # model.requires_grad_(False)
+        for p in model.get_model().mm_output_vid_projector.parameters():
+            p.requires_grad = True
+    model.config.freeze_mm_output_vid_adapter = training_args.freeze_mm_output_vid_adapter
+    if training_args.freeze_mm_output_vid_adapter:
+        for p in model.get_model().mm_output_vid_projector.parameters():
+            p.requires_grad = False
+
+    # freeze/unfreeze the mm output audio adapters
+    model.config.tune_mm_output_aud_adapter = training_args.tune_mm_output_aud_adapter = model_args.tune_mm_output_aud_adapter
+    if model_args.tune_mm_output_aud_adapter:
+        # model.requires_grad_(False)
+        for p in model.get_model().mm_output_aud_projector.parameters():
+            p.requires_grad = True
+    model.config.freeze_mm_output_aud_adapter = training_args.freeze_mm_output_aud_adapter
+    if training_args.freeze_mm_output_aud_adapter:
+        for p in model.get_model().mm_output_aud_projector.parameters():
+            p.requires_grad = False
+
+    # # print the model parameters to check if the adapters are trainable
+    # for n, p in model.get_model().mm_input_projector.named_parameters():
+    #     print(n, ': ', p.requires_grad)
+    # for n, p in model.get_model().mm_output_aud_projector.named_parameters():
+    #     print(n, ': ', p.requires_grad)
+    # for n, p in model.get_model().mm_output_vid_projector.named_parameters():
+    #     print(n, ': ', p.requires_grad)
+    # for n, p in model.get_model().mm_output_img_projector.named_parameters():
+    #     print(n, ': ', p.requires_grad)
+
+    # initialize_vision_tokenizer
+    model.initialize_vision_tokenizer(model_args, tokenizer=tokenizer)      
     model.print_model_parameters()
 
     print('Testing tokenizer ... \n')

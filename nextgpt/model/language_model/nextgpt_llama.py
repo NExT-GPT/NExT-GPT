@@ -674,7 +674,8 @@ class NextGPTLlamaForCausalLM(LlamaForCausalLM, NextGPTMetaForCausalLM):
         # the output hidden states is a tuple - 
         # one is the input hidden states of all layers (32 + 1(embedding layers)) 
         # and the other is the output hidden states of all layers (32 + 1(embedding layers))
-        hidden_embedding = [x[self.config.layer_idx] for x in outputs.hidden_states[1:]]
+        layer_idx = getattr(self.config, "layer_idx", -1)
+        hidden_embedding = [x[layer_idx] for x in outputs.hidden_states[1:]]
         print('hidden_embedding: ', len(hidden_embedding))
         print('hidden_embedding: ', hidden_embedding[0].size())
         hidden_embedding = torch.cat(hidden_embedding, dim=1)
