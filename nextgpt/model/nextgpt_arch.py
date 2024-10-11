@@ -401,7 +401,7 @@ class NextGPTMetaForCausalLM(ABC):
         if images is not None:
             if type(images) is list or images.ndim == 5:
                 if type(images) is list:
-                    images = [(x.squeeze(dim=0) if x.ndim == 3 else x) for x in images]
+                    images = [(x.unsqueeze(dim=0) if x.ndim == 3 else x) for x in images]
                 concat_images = torch.concat([x for x in images], dim=0)
                 image_features = self.encode_images(concat_images)
             else:
@@ -411,9 +411,9 @@ class NextGPTMetaForCausalLM(ABC):
             image_features =  torch.zeros((input_ids.shape[0], 4096), dtype=multimodal_tower.dtype, device=input_ids.device)
         
         if videos is not None:
-            if type(videos) is list or videos.ndim == 6:
+            if type(videos) is list or videos.ndim == 7:
                 if type(videos) is list:
-                    videos = [(x.squeeze(dim=0) if x.ndim == 4 else x) for x in videos]
+                    videos = [(x.unsqueeze(dim=0) if x.ndim == 5 else x) for x in videos]
                 concat_videos = torch.concat([video for video in videos], dim=0)
                 video_features = self.encode_videos(concat_videos)
             else:
@@ -423,9 +423,9 @@ class NextGPTMetaForCausalLM(ABC):
             video_features =  torch.zeros((input_ids.shape[0], 4096), dtype=multimodal_tower.dtype, device=input_ids.device)
         
         if audios is not None:
-            if type(audios) is list or audios.ndim == 7:
+            if type(audios) is list or audios.ndim == 6:
                 if type(audios) is list:
-                    audios = [(x.squeeze(dim=0) if x.ndim == 5 else x) for x in audios]
+                    audios = [(x.unsqueeze(dim=0) if x.ndim == 4 else x) for x in audios]
                 concat_audios = torch.concat([audio for audio in audios], dim=0)
                 audio_features = self.encode_audios(concat_audios)
             else:

@@ -259,7 +259,7 @@ class LazySupervisedDataset(Dataset):
         data_dict = preprocess(
             sources,
             self.tokenizer,
-            has_other_modality='image')  # ('image' in self.list_data_dict[i] or 'video' in self.list_data_dict[i] or 'audio' in self.list_data_dict[i])
+            has_other_modality=True)  # ('image' in self.list_data_dict[i] or 'video' in self.list_data_dict[i] or 'audio' in self.list_data_dict[i])
         # print("Data dict: ", data_dict)
         if isinstance(i, int):
             data_dict = dict(input_ids=data_dict["input_ids"][0],

@@ -113,7 +113,7 @@ def _add_speaker_and_signal(header, source, get_conversation=True):
 def preprocess(
     sources: Sequence[str],
     tokenizer: transformers.PreTrainedTokenizer,
-    has_other_modality: bool = False,  # None, 'image', 'video', 'audio', 'mixed'
+    has_other_modality: bool = True,  # None, 'image', 'video', 'audio', 'mixed'
 ) -> Dict:
     """
     Given a list of sources, each is a conversation list. This transform:
@@ -123,7 +123,7 @@ def preprocess(
     4. Make a deepcopy as the target. Mask human words with IGNORE_INDEX.
     """
     if conversation_lib.default_conversation.sep_style == conversation_lib.SeparatorStyle.PLAIN:
-        return preprocess_plain(sources, tokenizer)
+        return preprocess_plain(sources, tokenizer, has_other_modality=has_other_modality)
     if conversation_lib.default_conversation.sep_style == conversation_lib.SeparatorStyle.LLAMA_2:
         return preprocess_llama_2(sources, tokenizer, has_other_modality=has_other_modality)
     if conversation_lib.default_conversation.version.startswith("v1"):
@@ -221,7 +221,7 @@ def preprocess_multimodal(
 def preprocess_llama_2(
     sources,
     tokenizer: transformers.PreTrainedTokenizer,
-    has_other_modality: bool = False,  # None, 'image', 'video', 'audio', 'mixed'
+    has_other_modality: bool = True,  # None, 'image', 'video', 'audio', 'mixed'
 ) -> Dict:
     conv = conversation_lib.default_conversation.copy()
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
@@ -303,7 +303,7 @@ def preprocess_llama_2(
 def preprocess_v1(
     sources,
     tokenizer: transformers.PreTrainedTokenizer,
-    has_other_modality: bool = False,  # None, 'image', 'video', 'audio', 'mixed'
+    has_other_modality: bool = True,  # None, 'image', 'video', 'audio', 'mixed'
 ) -> Dict:
     conv = conversation_lib.default_conversation.copy()
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
@@ -390,7 +390,7 @@ def preprocess_v1(
 def preprocess_mpt(
     sources,
     tokenizer: transformers.PreTrainedTokenizer,
-    has_other_modality: bool = False
+    has_other_modality: bool = True
 ) -> Dict:
     conv = conversation_lib.default_conversation.copy()
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
@@ -478,30 +478,14 @@ def preprocess_mpt(
 def preprocess_plain(
     sources: Sequence[str],
     tokenizer: transformers.PreTrainedTokenizer,
-    has_other_modality: bool = False,  # None, 'image', 'video', 'audio', 'mixed'
-    training_stage: str = "enc",
+    has_other_modality: bool = True,  # None, 'image', 'video', 'audio', 'mixed'
 ) -> Dict:
     # add end signal and concatenate together
     conversations = []
     # print("sources: ", sources)
     for source in sources:
         assert len(source) == 2
-        if training_stage == "enc":
-            assert DEFAULT_IMAGE_TOKEN in source[0]['value'] or DEFAULT_AUDIO_TOKEN in source[0]['value'] or DEFAULT_VIDEO_TOKEN in source[0]['value']
-            if DEFAULT_IMAGE_TOKEN in source[0]['value']:
-                source[0]['value'] = DEFAULT_IMAGE_TOKEN
-            elif DEFAULT_VIDEO_TOKEN in source[0]['value']:
-                source[0]['value'] = DEFAULT_VIDEO_TOKEN
-            elif DEFAULT_AUDIO_TOKEN in source[0]['value']:
-                source[0]['value'] = DEFAULT_AUDIO_TOKEN
-            else:
-                raise ValueError("Unknown modality")
-            # source[0]['value'] = DEFAULT_IMAGE_TOKEN
-            conversation = source[0]['value'] + source[1]['value'] + conversation_lib.default_conversation.sep
-        elif training_stage == "dec":
-            conversation = source[0]['value'] + source[1]['value'] + '' + conversation_lib.default_conversation.sep
-        else:
-            raise ValueError("Unknown training stage")  
+        conversation = source[0]['value'] + source[1]['value'] + '' + conversation_lib.default_conversation.sep
         conversations.append(conversation)
     # tokenize conversations
     if has_other_modality:
