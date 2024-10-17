@@ -415,8 +415,6 @@ def train(attn_implementation=None):
         training_args.use_aud_start_end = model_args.mm_use_aud_start_end
 
         model.config.mm_output_projector_lr = training_args.mm_output_projector_lr
-
-        model.initialize_vision_tokenizer(model_args, tokenizer=tokenizer)
     
     if model_args.image_decoder is not None and model_args.video_decoder is not None and model_args.audio_decoder is not None:
 
