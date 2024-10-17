@@ -33,7 +33,7 @@ deepspeed  --include localhost:2 --master_addr 127.0.0.1 --master_port 28460 tra
     --pretrain_mm_input_adapter ./checkpoints/pretrain_enc_1/mm_input_projector.bin \
     --tune_mm_input_adapter False \
     --freeze_mm_input_adapter False \
-    --mm_input_projector_type mlp \
+    --mm_input_projector_type group \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --image_aspect_ratio pad \
