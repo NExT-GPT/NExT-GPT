@@ -1,8 +1,10 @@
-# <img src="code/nextgpt.png" style="width: 5%"> NExT-GPT: Any-to-Any Multimodal LLM
+# <img src="NExT-GPT-Lagacy/code/nextgpt.png" style="width: 5%"> NExT-GPT: Any-to-Any Multimodal LLM
 [Shengqiong Wu](https://chocowu.github.io/), [Hao Fei](http://haofei.vip/)*, [Leigang Qu](#), [Wei Ji](https://jiwei0523.github.io/), and [Tat-Seng Chua](https://www.chuatatseng.com/).
 (*Correspondence )
 
-**[NExT++](https://www.nextcenter.org/), School of Computing, National University of Singapore**
+**ICML 2024, Oral Paper**
+
+**[NExT++ Research Center](https://www.nextcenter.org/), School of Computing, National University of Singapore**
 
 -----
 
