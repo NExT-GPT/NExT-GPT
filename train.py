@@ -141,7 +141,7 @@ def safe_save_input_adapter_for_hf_trainer(trainer: transformers.Trainer,
 def safe_save_output_adapter_for_hf_trainer(trainer: transformers.Trainer,
                                             output_dir: str):
     # Only save Adapter
-    keys_to_match = ['mm_output_img_projector', 'mm_output_vid_projector', 'mm_output_aud_projector', 'embed_tokens', 'embed_in']
+    keys_to_match = ['mm_output_img_projector', 'mm_output_vid_projector', 'mm_output_aud_projector', 'embed_tokens', 'embed_in', 'lm_head']
     trainer.model.config.save_pretrained(output_dir)
     weight_to_save = get_mm_adapter_state_maybe_zero_3(trainer.model.named_parameters(), keys_to_match)
     
@@ -182,11 +182,11 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer,
     trainer.model.config.save_pretrained(output_dir)
     save_flag = False
     if getattr(trainer.args, 'tune_mm_input_adapter', False):
-        keys_to_match = ['mm_input_projector', 'vision_resampler', 'embed_tokens', 'embed_in']
+        keys_to_match = ['mm_input_projector', 'vision_resampler', 'embed_tokens', 'embed_in', 'lm_head']
         save_flag = save_adapter_for_hf_trainer(trainer, output_dir, keys_to_match, 'mm_input_projector.bin')
     
     if any(getattr(trainer.args, f'tune_mm_output_{mod}_adapter', False) for mod in ['img', 'vid', 'aud']):
-        keys_to_match = ['mm_output_img_projector', 'mm_output_vid_projector', 'mm_output_aud_projector', 'embed_tokens', 'embed_in']
+        keys_to_match = ['mm_output_img_projector', 'mm_output_vid_projector', 'mm_output_aud_projector', 'embed_tokens', 'embed_in', 'lm_head']
         save_flag = save_adapter_for_hf_trainer(trainer, output_dir, keys_to_match, 'mm_output_projector.bin')
 
     if save_flag:
